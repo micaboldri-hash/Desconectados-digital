@@ -1,13 +1,13 @@
 
 import { GoogleGenAI, Type } from "@google/genai";
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-
 export interface DeepContent {
   followup: string;
 }
 
 export async function getDeepContent(question: string): Promise<DeepContent> {
+  // Inicializamos el cliente justo antes de usarlo para asegurar que process.env.API_KEY esté disponible
+  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
   const model = 'gemini-3-flash-preview';
   
   const systemInstruction = `
