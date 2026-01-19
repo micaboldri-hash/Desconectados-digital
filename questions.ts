@@ -1,197 +1,238 @@
 
 import { Question } from './types';
 
+// Fix: Renamed to QUESTIONS and exported to resolve "no exported member" error in App.tsx
 export const QUESTIONS: Question[] = [
-  { id: 1, text: "¿Sos obsesivo/a? ¿En qué sentido?" },
-  { id: 2, text: "¿Te mentís a vos mismo/a sobre algo? ¿Por qué?" },
-  { id: 3, text: "¿Un recuerdo valioso de tu infancia?" },
-  { id: 4, text: "¿Una persona o una experiencia que te haya marcado?" },
-  { id: 5, text: "¿Cuál es tu mayor miedo?" },
-  { id: 6, text: "¿Qué pensabas el día que nació tu primer/a hijo/a? Si no tenés hijos/as, ¿te gustaría tener?" },
-  { id: 7, text: "¿Qué aprendiste de vos este último año?" },
-  { id: 8, text: "¿Tuviste amistades que no fueron sanas? ¿Cómo lo manejaste?" },
-  { id: 9, text: "¿Qué exigencias te imponés? ¿Hacés algo para suavizarlas?" },
-  { id: 10, text: "¿Hay algún aspecto de tu personalidad que te cuesta aceptar? ¿Buscás rechazarlo o integrarlo en tu vida?" },
-  { id: 11, text: "¿Sentís que te quedó algo pendiente con alguna persona? ¿Por qué no hiciste nada al respecto?" },
-  { id: 12, text: "¿Cómo te veo en esta etapa?" },
-  { id: 13, text: "¿Qué cambiarías de tu crianza si tuvieras que educar a una persona?" },
-  { id: 14, text: "¿Qué estás trabajando en tu interior y te gustaría compartir?" },
-  { id: 15, text: "Destacá una virtud de alguna de las personas presentes." },
-  { id: 16, text: "¿Qué rol cumplís en tu familia? ¿Cómo te hace sentir?" },
-  { id: 17, text: "¿Cómo manejás los desencuentros en los vínculos (*)? (*) Por ejemplo, amistades que dejás de frecuentar." },
-  { id: 18, text: "¿Cuándo fue la última vez que dijiste \"Te quiero\"? ¿A quién se lo dijiste?" },
-  { id: 19, text: "Describí tu relación con vos mismo/a." },
-  { id: 20, text: "Solo yo sé que soy ________." },
-  { id: 21, text: "¿Cuál es el sueño más grande que tenés?" },
-  { id: 22, text: "¿Qué comida te recuerda a tu hogar?" },
-  { id: 23, text: "¿Qué personaje de película o serie te gustaría ser? ¿Por qué?" },
-  { id: 24, text: "¿Qué recuerdo tenés de tu primera cita?" },
-  { id: 25, text: "¿Qué canción elegirías para cantar en un karaoke?" },
-  { id: 26, text: "¿Quién de las personas presentes sería mejor comediante?" },
-  { id: 27, text: "¿Qué cuento te relataban en la infancia?" },
-  { id: 28, text: "¿Te enamoraste alguna vez? ¿Quién fue la primera persona y qué te gustó de ella?" },
-  { id: 29, text: "¿Qué buscás en una pareja?" },
-  { id: 30, text: "Quiero o tengo. ¿Cuál de las dos está más presente en tu cotidianidad?" },
-  { id: 31, text: "¿Qué aventura tenés pendiente por realizar?" },
-  { id: 32, text: "¿Una situación que te incomode?" },
-  { id: 33, text: "¿Una persona que te alivie en momentos tristes?" },
-  { id: 34, text: "Si pudiese ser exitoso/a en lo que quieras, ¿en qué elegirías serlo?" },
-  { id: 35, text: "¿Una buena decisión?" },
-  { id: 36, text: "¿Qué pensás sobre la monogamia?" },
-  { id: 37, text: "¿Alguna vez tuviste un acto valioso con alguien, del que no presumas mucho, pero te hace sentir orgulloso/a?" },
-  { id: 38, text: "¿Dejaste de hacer cosas por miedo a fracasar? ¿Cuáles?" },
-  { id: 39, text: "¿Creés en las segundas oportunidades?" },
-  { id: 40, text: "¿Cuál es el mejor consejo que te dieron? ¿Pudiste transmitirselo a alguien también?" },
-  { id: 41, text: "¿Qué pensabas el día de tu casamiento? Si no te casaste, ¿te gustaría?" },
-  { id: 42, text: "¿Qué creencias se les imponen a los/as niños/as y no estás de acuerdo?" },
-  { id: 43, text: "Si pudiese conocer los sentimientos más profundos de una persona, ¿a quién elegirías? ¿Por qué?" },
-  { id: 44, text: "¿Qué estás listo/a para soltar?" },
-  { id: 45, text: "¿Considerás importante la educación sexual? ¿Quiénes deberían abordar este tema?" },
-  { id: 46, text: "¿Un sueño recurrente?" },
-  { id: 47, text: "Un talento inútil que te de orgullo es ________." },
-  { id: 48, text: "¿Qué lugar ocupa el deseo en tu vida?" },
-  { id: 49, text: "¿Qué es la soledad para vos? ¿Te gusta estar solo/a? ¿Por qué?" },
-  { id: 50, text: "Si algo te gusta, ¿asumirías cualquier riesgo?" },
-  { id: 51, text: "¿Qué te da culpa?" },
-  { id: 52, text: "¿Qué creencia te gustaría desaprender?" },
-  { id: 53, text: "¿Cuándo fue la última vez que lloraste? ¿Por qué?" },
-  { id: 54, text: "¿Qué tan cómodo/a te sentís hablando sobre la sexualidad?" },
-  { id: 55, text: "¿Hay algún momento en el que te sientas solo/a estando acompañado/a?" },
-  { id: 56, text: "¿Cómo y por qué empezaste a tener conocimiento sobre la sexualidad? ¿Te hubiese gustado que sea de otra forma?" },
-  { id: 57, text: "Si mirás al pasado, ¿cómo ves al/a la adolescente que fuiste?" },
-  { id: 58, text: "Cuáles son tus próximos objetivos por cumplir?" },
-  { id: 59, text: "¿Qué etiqueta sentís que acarreás y no te identifica?" },
-  { id: 60, text: "¿Qué pensás sobre la educación sin distinción de géneros?" },
-  { id: 61, text: "\"Elegí un trabajo que te guste y no vas a tener que trabajar ni un día de tu vida\". ¿Qué pensás?" },
-  { id: 62, text: "La educación que recibí me enseñó a ________." },
-  { id: 63, text: "¿Qué o quién influye en la forma en que pensás? ¿Por qué?" },
-  { id: 64, text: "¿El fin justifica los medios?" },
-  { id: 65, text: "Cuando ayudás a alguien, ¿lo hacés por vos o por la otra persona? ¿Creés que existen las acciones desinteresadas?" },
-  { id: 66, text: "¿Creés que se puede hacer humor con todo? ¿Qué pensás?" },
-  { id: 67, text: "¿Qué es ser libre en una relación de pareja? ¿Qué diferencias encontrás con otros vínculos que mantenés?" },
-  { id: 68, text: "¿Qué es la sexualidad para vos?" },
-  { id: 69, text: "Lo que una persona piensa, ¿creés que la define? ¿En qué medida y por qué?" },
-  { id: 70, text: "¿Alguna vez dejaste de hacer algo por tu género?" },
-  { id: 71, text: "¿Creés que existe una razón por la que te rodeás de ciertas personas?" },
-  { id: 72, text: "¿Todo lo que pensamos es lo que deseamos? ¿Por qué?" },
-  { id: 73, text: "¿Cuándo creés que es importante empezar a tener noción sobre la sexualidad?" },
-  { id: 74, text: "¿Casualidad o causalidad?" },
-  { id: 75, text: "\"Si no te cela no te quiere\". ¿Qué opinás sobre esta expresión?" },
-  { id: 76, text: "¿Creés que llega un momento en el que nos sentimos realizados/as?" },
-  { id: 77, text: "¿Alguna vez fingiste afecto por una persona? ¿Por qué?" },
-  { id: 78, text: "¿Qué mandatos traés y padecés?" },
-  { id: 79, text: "El lenguaje, ¿cómplice o enemigo de la inclusión social?" },
-  { id: 80, text: "Si pudieras volver al pasado, ¿qué te dirías?" },
-  { id: 81, text: "Siendo grande, ¿cómo te hubiese gustado ser de chico/a?" },
-  { id: 82, text: "¿Qué cambiarías del mundo?" },
-  { id: 83, text: "¿Te gustaría hacerle una pregunta a una de las personas presentes? Hacésela." },
-  { id: 84, text: "¿Alguna vez escuchaste o leíste alguna conversación sin permiso? ¿Por qué?" },
-  { id: 85, text: "¿Creés que existe el momento indicado para empezar o terminar un proyecto (*)? ¿Cómo te das cuenta? (*) Por ejemplo, una relación, un trabajo, entre otros." },
-  { id: 86, text: "¿Tuviste alguna experiencia paranormal? ¿Cómo fue y con quién/es estabas?" },
-  { id: 87, text: "¿En qué te gustaría haber sido bueno/a?" },
-  { id: 88, text: "¿El último regalo que hiciste? ¿Y el último regalo que recibiste?" },
-  { id: 89, text: "¿Sobre qué tema considerás que tenés mucho conocimiento?" },
-  { id: 90, text: "Si fueses embajador/a, ¿qué lugar elegirías para irte a vivir? ¿A dónde no irías?" },
-  { id: 91, text: "¿Tu película preferida?" },
-  { id: 92, text: "Si escribieras un libro, ¿de qué sería? ¿Cómo lo titularías?" },
-  { id: 93, text: "¿Qué es lo que más te gusta del barrio donde vivís?" },
-  { id: 94, text: "Si fueras un animal, ¿cuál serías? ¿Por qué?" },
-  { id: 95, text: "¿Elegirías otra época para vivir? ¿Cuál? ¿Por qué?" },
-  { id: 96, text: "¿Un viaje pendiente?" },
-  { id: 97, text: "¿Cuál es tu lugar preferido en tu casa? ¿Por qué?" },
-  { id: 98, text: "¿Existe la media naranja? ¿Creés que necesitamos algo o alguien externo para sentirnos completos/as?" },
-  { id: 99, text: "\"Es mejor pedir perdón que permiso\". ¿Qué opinás sobre esta expresión?" },
-  { id: 100, text: "¿Creés que las personas pueden cambiar?" },
-  { id: 101, text: "Pensá en alguien que te gustaría abrazar. ¿Quién es?" },
-  { id: 102, text: "¿Cómo canalizás tu enojo? ¿Y tu tristeza?" },
-  { id: 103, text: "¿Una canción que te alegre?" },
-  { id: 104, text: "Si pudieses volver al pasado y cambiar algo, ¿qué sería? ¿Por qué?" },
-  { id: 105, text: "¿Una decisión difícil?" },
-  { id: 106, text: "Compartí un miedo absurdo que tengas." },
-  { id: 107, text: "¿Un pensamiento recurrente?" },
-  { id: 108, text: "¿Con quién fue tu primer beso? ¿Qué sentiste?" },
-  { id: 109, text: "Si pudieras crear tu lugar en el mundo, ¿cómo sería?" },
-  { id: 110, text: "La razón o la emoción. ¿Cuál de las dos tiene más peso en vos? ¿Te gusta que sea así o preferirías que fuera al revés?" },
-  { id: 111, text: "¿Qué actividad tendés a dejar para después?" },
-  { id: 112, text: "\"Dime con quién andas y te diré quién eres\". ¿Qué pensás?" },
-  { id: 113, text: "¿Te define la opinión de los/as demás?" },
-  { id: 114, text: "¿Cuál fue tu primera impresión de la persona que tenés a tu izquierda?" },
-  { id: 115, text: "¿Cómo reaccionás ante una actitud que te molesta?" },
-  { id: 116, text: "¿Te considerás una persona prejuiciosa? ¿Por qué?" },
-  { id: 117, text: "¿Qué actividades te divertían antes y ahora no?" },
-  { id: 118, text: "¿Pensás más en el \"por qué\" o en el \"para qué\" de las cosas?" },
-  { id: 119, text: "¿Qué mandatos o presiones creés que se imponen entre varones?" },
-  { id: 120, text: "¿Qué es el \"amor propio\"?" },
-  { id: 121, text: "¿Creés que una persona adulta puede aprender de una joven? ¿En qué sentido?" },
-  { id: 122, text: "¿En qué momento del día tenés tus mejores ideas?" },
-  { id: 123, text: "¿Qué es lo primero que mirás en una persona?" },
-  { id: 124, text: "¿Cuándo fue la última vez que hiciste algo por primera vez? ¿Qué fue?" },
-  { id: 125, text: "¿Tu libro preferido?" },
-  { id: 126, text: "¿Creés en el amor a primera vista?" },
-  { id: 127, text: "¿Una situación vergonzosa que recuerdes?" },
-  { id: 128, text: "¿Cuál era tu juego o juguete favorito de la infancia?" },
-  { id: 129, text: "Tres cosas que te hacen sentir feliz." },
-  { id: 130, text: "¿Qué tres deseos pedías cuando eras niño/a? ¿Y ahora?" },
-  { id: 131, text: "Si fueses de otro género, ¿qué sería lo primero que harías?" },
-  { id: 132, text: "Si pudieses crear un feriado, ¿por qué motivo sería?" },
-  { id: 133, text: "¿Cuál es el mejor lugar que conociste?" },
-  { id: 134, text: "\"Detrás de un gran hombre hay una gran mujer\". ¿Qué pensás?" },
-  { id: 135, text: "Nombrá a alguien que te inspire." },
-  { id: 136, text: "Nombrá tres características que te definan." },
-  { id: 137, text: "¿Reconocés tus defectos? ¿Y tus virtudes? ¿Cuáles son?" },
-  { id: 138, text: "¿Qué actitudes no te gustan pero las tolerás en una persona? ¿Y cuáles valorás?" },
-  { id: 139, text: "Los domingos son... ¿Deprimentes o disfrutables? ¿Te gusta arrancar la semana?" },
-  { id: 140, text: "Un buen resultado, aunque sin esfuerzo, ¿vale menos?" },
-  { id: 141, text: "¿Creés que existe la amistad entre el hombre y la mujer?" },
-  { id: 142, text: "¿Cómo definís una relación tóxica?" },
-  { id: 143, text: "¿Vivir sin amor de amistad o sin amor de pareja?" },
-  { id: 144, text: "¿Elegimos lo que somos o nos lo impone nuestro entorno?" },
-  { id: 145, text: "Si tuvieses que volver a elegir tu género, ¿cuál elegirías? ¿Por qué?" },
-  { id: 146, text: "¿Hay alguna actividad que te guste tanto que te haga perder la noción del tiempo?" },
-  { id: 147, text: "Cuando eras chico/a, ¿cómo te imaginabas siendo adulto/a?" },
-  { id: 148, text: "¿Qué actividad extrema te gustaría hacer?" },
-  { id: 149, text: "¿Un momento simple que disfrutes?" },
-  { id: 150, text: "¿Qué momentos del día elegís para reflexionar?" },
-  { id: 151, text: "¿De qué halago estás más orgulloso/a?" },
-  { id: 152, text: "¿Qué disfrutás de tu cotidianidad? ¿Y qué no?" },
-  { id: 153, text: "¿Tomás decisiones porque te sentís preparado/a o porque son las esperadas para tu edad?" },
-  { id: 154, text: "¿Con qué tipo de personalidad solés conectar?" },
-  { id: 155, text: "¿Creés que todos/as tenemos un propósito en esta vida? ¿Cuál sentís que es el tuyo?" },
-  { id: 156, text: "Una mujer toma la iniciativa en una relación heterosexual. ¿Qué pensás?" },
-  { id: 157, text: "Cuando te sentís bien con vos mismo/a, ¿con quién te gusta estar?" },
-  { id: 158, text: "Si tuvieses que elegir una profesión o carrera distinta, ¿cuál sería?" },
-  { id: 159, text: "¿Qué primera impresión creés que das?" },
-  { id: 160, text: "¿Te asusta el futuro? ¿Por qué?" },
-  { id: 161, text: "¿Volver al pasado o ir al futuro? ¿Por qué?" },
-  { id: 162, text: "Si fueras un objeto, ¿cuál te gustaría ser?" },
-  { id: 163, text: "¿Qué fantasía te gustaría bajar a la realidad?" },
-  { id: 164, text: "Cuáles son tus tres placeres culposos?" },
-  { id: 165, text: "¿Qué título le pondrías a una película sobre tu vida?" },
-  { id: 166, text: "Tres cosas que te gusta hacer y sentís que te salen mal." },
-  { id: 167, text: "¿Algo ridículo por lo que te gustaría que te paguen?" },
-  { id: 168, text: "¿Tres cosas que te den vergüenza ajena?" },
-  { id: 169, text: "Si fueses una persona famosa, ¿quién serías? ¿Por qué?" },
-  { id: 170, text: "¿Tenés alguna fuente de motivación hoy en día? ¿Cuál es o podría ser?" },
-  { id: 171, text: "¿Te sentís libre de tomar tus propias decisiones?" },
-  { id: 172, text: "¿Qué destacás de las personas que te criaron?" },
-  { id: 173, text: "¿Qué sensaciones tuviste en tu primer día de universidad/trabajo? Si no tuviste esas experiencias, ¿qué esperás de ellas?" },
-  { id: 174, text: "Si tuvieras que elegir una persona para que te acompañe en una experiencia espiritual, ¿quién sería? ¿Por qué?" },
-  { id: 175, text: "¿Qué destacás de tus amistades?" },
-  { id: 176, text: "¿Solés culpar a otras personas por lo que te pasa? ¿En qué situaciones?" },
-  { id: 177, text: "¿Te dedicás tiempo a vos mismo/a? ¿Qué hacés en esos momentos?" },
-  { id: 178, text: "¿Te gusta reflexionar solo/a o con otras personas? ¿Qué temas despiertan tu curiosidad últimamente?" },
-  { id: 179, text: "¿Te animarías a vivir una experiencia en el extranjero? ¿Cuál?" },
-  { id: 180, text: "¿Te permitís mostrarte vulnerable? ¿Con quién?" },
-  { id: 181, text: "Perdonar o pedir perdón. ¿Cuál te cuesta más?" },
-  { id: 182, text: "¿Creés que vamos camino a una sociedad sin estereotipos? ¿Considerás que es una señal de evolución?" },
-  { id: 183, text: "¿Se puede estar bien con los demás sin estar bien con uno/a mismo/a?" },
-  { id: 184, text: "Esta semana me puse contento/a por ________." },
-  { id: 185, text: "¿Qué es el éxito para vos? ¿Evaluás diferentes formas de sentirte exitoso/a?" },
-  { id: 186, text: "¿Qué amás y la mayoría de la gente no?" },
-  { id: 187, text: "¿Sos idealista o realista? ¿Cómo impacta en tu vida y en tus relaciones?" },
-  { id: 188, text: "¿Qué pensás sobre la demostración afectiva en público?" },
-  { id: 189, text: "¿Qué diferencias creés que existen entre el amor y el enamoramiento?" },
-  { id: 190, text: "¿Qué temas considerás tabú? ¿Por qué?" },
-  { id: 191, text: "¿Creés que hay alguna razón por la que naciste en tu familia?" },
-  { id: 192, text: "¿La educación escolar nos prepara para afrontar la adultez?" }
+  { 
+    id: 1, 
+    text: "¿Sos obsesivo/a? ¿En qué sentido?", 
+    followUps: [
+      "¿Ese rasgo te ayuda en tu día a día o te genera estrés?",
+      "¿Hay alguien que te lo haya señalado alguna vez?",
+      "¿Intentaste cambiarlo o ya lo aceptaste como parte de vos?",
+      "¿En qué áreas de tu vida se nota más esa obsesión?",
+      "¿Recordás cuándo empezó a manifestarse ese rasgo?"
+    ]
+  },
+  { 
+    id: 2, 
+    text: "¿Te mentís a vos mismo/a sobre algo? ¿Por qué?",
+    followUps: [
+      "¿Qué pasaría si hoy decidieras dejar de caer en esa mentira?",
+      "¿Sentís que esa mentira te protege de algo?",
+      "¿Es algo que sospechás que los demás ya notaron?",
+      "¿Cómo te hace sentir admitirlo ahora?",
+      "¿Esa mentira cambió con el paso de los años?"
+    ]
+  },
+  { 
+    id: 3, 
+    text: "¿Un recuerdo valioso de tu infancia?",
+    followUps: [
+      "¿Qué olor o sonido te transporta a ese momento?",
+      "¿Quién más estaba presente en ese recuerdo?",
+      "¿Por qué creés que tu mente eligió guardar ese momento exacto?",
+      "¿Cómo te sentís al recordarlo hoy?",
+      "¿Qué le dirías a tu versión niña de ese momento?"
+    ]
+  },
+  { 
+    id: 4, 
+    text: "¿Una persona o una experiencia que te haya marcado?",
+    followUps: [
+      "¿Cómo sería tu vida hoy si eso no hubiera pasado?",
+      "¿Esa marca es algo que llevás con orgullo o con nostalgia?",
+      "¿Qué aprendiste de vos a través de esa persona o evento?",
+      "¿Se lo pudiste agradecer o expresar alguna vez?",
+      "¿Esa experiencia cambió tus valores fundamentales?"
+    ]
+  },
+  { 
+    id: 5, 
+    text: "¿Cuál es tu mayor miedo?",
+    followUps: [
+      "¿Sentís que ese miedo te limita en tus decisiones?",
+      "¿De dónde creés que viene esa sensación?",
+      "¿Hay algún momento en el que te sentiste valiente frente a eso?",
+      "¿Qué es lo peor que podría pasar si se hiciera realidad?",
+      "¿Cómo te imaginás superándolo algún día?"
+    ]
+  },
+  { 
+    id: 6, 
+    text: "¿Qué pensabas el día que nació tu primer/a hijo/a? Si no tenés hijos/as, ¿te gustaría tener?",
+    followUps: [
+      "¿Qué es lo que más te asusta o te ilusiona de la ma/paternidad?",
+      "¿Cómo imaginás que cambiarían tus prioridades?",
+      "¿Qué valor fundamental te gustaría transmitir?",
+      "¿Sentís presión social respecto a este tema?",
+      "¿Creés que estás preparado/a para ese cambio?"
+    ]
+  },
+  { 
+    id: 7, 
+    text: "¿Qué aprendiste de vos este último año?",
+    followUps: [
+      "¿Fue un aprendizaje doloroso o gratificante?",
+      "¿Qué hábito tuviste que dejar atrás para aprender eso?",
+      "¿Cómo vas a aplicar ese conocimiento de ahora en adelante?",
+      "¿Alguien te ayudó a darte cuenta de eso?",
+      "¿Te sorprendió descubrir eso sobre vos?"
+    ]
+  },
+  { 
+    id: 8, 
+    text: "¿Tuviste amistades que no fueron sanas? ¿Cómo lo manejaste?",
+    followUps: [
+      "¿Qué señales ignoraste al principio?",
+      "¿Te costó mucho poner un límite?",
+      "¿Sentís que eso cambió tu forma de confiar en los demás?",
+      "¿Qué aprendiste sobre lo que sí buscás en un amigo?",
+      "¿Hubo algún momento de cierre o simplemente se alejaron?"
+    ]
+  },
+  { 
+    id: 9, 
+    text: "¿Qué exigencias te imponés? ¿Hacés algo para suavizarlas?",
+    followUps: [
+      "¿Esa voz que te exige suena como la tuya o como la de alguien más?",
+      "¿En qué momento del día te sentís más presionado/a por vos mismo/a?",
+      "¿Qué pasa si un día decidís no cumplir con esas expectativas?",
+      "¿Cómo te premiás cuando lográs relajarte?",
+      "¿Sentís que esas exigencias vienen de tu infancia?"
+    ]
+  },
+  { 
+    id: 10, 
+    text: "¿Hay algún aspecto de tu personalidad que te cuesta aceptar? ¿Buscás rechazarlo o integrarlo en tu vida?",
+    followUps: [
+      "¿Cómo creés que ese aspecto te ayuda en ciertas situaciones?",
+      "¿Qué pasaría si fueras más amable con esa parte de vos?",
+      "¿Es algo que intentás ocultar a los demás?",
+      "¿Cuándo sentís que ese rasgo toma el control?",
+      "¿Alguien te hizo sentir que ese rasgo era algo malo?"
+    ]
+  },
+  { 
+    id: 11, 
+    text: "¿Sentís que te quedó algo pendiente con alguna persona? ¿Por qué no hiciste nada al respecto?",
+    followUps: [
+      "¿Qué es lo que más te frena para retomar ese contacto?",
+      "¿Cómo te sentirías si esa persona diera el primer paso?",
+      "¿Sentís que el tiempo ya cerró esa puerta o sigue entreabierta?",
+      "¿Qué le dirías si la tuvieras frente a vos solo un minuto?",
+      "¿Es una deuda de perdón o de agradecimiento?"
+    ]
+  },
+  { 
+    id: 12, 
+    text: "¿Cómo te veo en esta etapa?",
+    followUps: [
+      "¿Esa imagen coincide con cómo te sentís por dentro?",
+      "¿Qué parte de tu personalidad creés que brilla más ahora?",
+      "¿Hay algo de tu versión anterior que extrañes?",
+      "¿Qué creés que proyectás sin darte cuenta?",
+      "¿Cómo te gustaría que te vieran los demás en un año?"
+    ]
+  },
+  { 
+    id: 13, 
+    text: "¿Qué cambiarías de tu crianza si tuvieras que educar a una persona?",
+    followUps: [
+      "¿Qué es lo que más agradecés de cómo te criaron?",
+      "¿Sentís que heredaste miedos de tus padres?",
+      "¿Cómo evitarías repetir los mismos errores?",
+      "¿Qué valor sentís que faltó en tu hogar?",
+      "¿Qué frase de tus padres repetís aunque no quieras?"
+    ]
+  },
+  { 
+    id: 14, 
+    text: "¿Qué estás trabajando en tu interior y te gustaría compartir?",
+    followUps: [
+      "¿Es algo que te genera paz o conflicto?",
+      "¿Cómo te das cuenta de que estás progresando en eso?",
+      "¿Qué es lo más difícil de ese proceso?",
+      "¿Quién es tu mayor apoyo en este camino?",
+      "¿Cómo te imaginás una vez que logres resolverlo?"
+    ]
+  },
+  { 
+    id: 15, 
+    text: "Destacá una virtud de alguna de las personas presentes.",
+    followUps: [
+      "¿Cuándo fue la primera vez que notaste esa virtud?",
+      "¿Cómo creés que esa virtud influye en el grupo?",
+      "¿Te gustaría tener un poco más de ese rasgo en vos?",
+      "¿Sentís que esa persona es consciente de lo valioso que es ese don?",
+      "¿Cómo podrías ayudar a potenciar esa virtud en ella?"
+    ]
+  },
+  { 
+    id: 16, 
+    text: "¿Qué rol cumplís en tu familia? ¿Cómo te hace sentir?",
+    followUps: [
+      "¿Ese rol te fue asignado o lo elegiste vos?",
+      "¿Te gustaría probar un papel diferente por un tiempo?",
+      "¿Sentís que ese rol te agota o te da propósito?",
+      "¿Cómo cambia ese rol cuando estás fuera del círculo familiar?",
+      "¿Quién es la persona que más reconoce tu esfuerzo en la familia?"
+    ]
+  },
+  { 
+    id: 17, 
+    text: "¿Cómo manejás los desencuentros en los vínculos (*)? (*) Por ejemplo, amistades que dejás de frecuentar.",
+    followUps: [
+      "¿Sos de los que prefieren hablar o de los que se alejan en silencio?",
+      "¿Sentís mucha culpa cuando un vínculo se rompe?",
+      "¿Qué es lo que más te cuesta perdonar en una relación?",
+      "¿Sos de dar segundas oportunidades con facilidad?",
+      "¿Cómo te das cuenta de que un vínculo ya no tiene vuelta atrás?"
+    ]
+  },
+  { 
+    id: 18, 
+    text: "¿Cuándo fue la última vez que dijiste \"Te quiero\"? ¿A quién se lo dijiste?",
+    followUps: [
+      "¿Te sale natural o sentís que tenés que pensarlo mucho?",
+      "¿Hay alguien a quien te gustaría decírselo pero no te animás?",
+      "¿Sentís que lo decís lo suficiente?",
+      "¿Cómo reaccionás cuando te lo dicen a vos?",
+      "¿Preferís decirlo con palabras o con actos?"
+    ]
+  },
+  { 
+    id: 19, 
+    text: "Describí tu relación con vos mismo/a.",
+    followUps: [
+      "¿Sos tu mejor amigo o tu peor juez?",
+      "¿Qué es lo que más te gusta de estar a solas con vos?",
+      "¿En qué momento del día te sentís más en paz con quien sos?",
+      "¿Qué le dirías a tu versión de hace cinco años?",
+      "¿Sentís que esa relación mejoró con el tiempo?"
+    ]
+  },
+  { 
+    id: 20, 
+    text: "Solo yo sé que soy ________.",
+    followUps: [
+      "¿Por qué elegís mantener esa parte en privado?",
+      "¿Hay alguien con quien te gustaría compartir ese secreto?",
+      "¿Cómo te hace sentir cargar con esa definición a solas?",
+      "¿Esa parte de vos te hace sentir vulnerable o poderoso/a?",
+      "¿Creés que la gente se sorprendería si lo supiera?"
+    ]
+  },
+  { 
+    id: 21, 
+    text: "¿Cuál es el sueño más grande que tenés?",
+    // Fix: Completed the missing follow-ups for the last question which was truncated
+    followUps: [
+      "¿Qué es lo primero que harías si hoy se cumpliera?",
+      "¿Sentís que estás haciendo algo para acercarte a eso?",
+      "¿Qué sacrificarías para lograrlo?",
+      "¿Alguien más sabe de este sueño?",
+      "¿Cómo creés que cambiaría tu vida si se hiciera realidad?"
+    ]
+  }
 ];

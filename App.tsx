@@ -1,5 +1,5 @@
 
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import Layout from './components/Layout';
 import Setup from './components/Setup';
@@ -7,17 +7,18 @@ import Card from './components/Card';
 import { Player, Question, GameState, TurnInfo, TurnType } from './types';
 import { QUESTIONS } from './questions';
 
-const CardBack = ({ rotation, offset, zIndex }: { rotation: number, offset: number, zIndex: number }) => (
+const CardBack = ({ rotation, offset, zIndex, scale = 1, opacity = 1 }: { rotation: number, offset: number, zIndex: number, scale?: number, opacity?: number }) => (
   <div 
-    className="absolute w-[280px] h-[420px] md:w-[340px] md:h-[500px] rounded-[1.5rem] bg-[#F5F1E3] border-4 border-white/60 shadow-lg flex items-center justify-center overflow-hidden transition-all duration-700 pointer-events-none"
+    className="absolute top-0 left-0 w-full h-full rounded-[2.5rem] bg-[#F5F1E3] border-2 border-white/60 shadow-xl flex items-center justify-center overflow-hidden transition-all duration-700 pointer-events-none origin-bottom"
     style={{ 
-      transform: `translateX(${offset}px) rotate(${rotation}deg)`,
-      zIndex: zIndex
+      transform: `translateX(${offset}px) rotate(${rotation}deg) scale(${scale})`,
+      zIndex: zIndex,
+      opacity: opacity
     }}
   >
-    <div className="w-full h-full opacity-5 flex flex-wrap gap-2 p-4 justify-center items-center">
-       {Array.from({ length: 40 }).map((_, i) => (
-        <div key={i} className="w-8 h-8 rounded-full border border-[#5C4D42]"></div>
+    <div className="w-full h-full opacity-[0.02] flex flex-wrap gap-2 p-6 justify-center items-center">
+       {Array.from({ length: 80 }).map((_, i) => (
+        <div key={i} className="w-5 h-5 rounded-full border border-[#5C4D42]"></div>
       ))}
     </div>
   </div>
@@ -48,14 +49,14 @@ const App: React.FC = () => {
     const playerNames = players.map(p => p.name);
     const n = playerNames.length;
     
-    if (rand < 0.2) {
+    if (rand < 0.15) {
       return { type: 'ALL', players: playerNames };
-    } else if (rand < 0.35) {
+    } else if (rand < 0.25) {
       return { type: 'READER', players: [] };
-    } else if (rand < 0.45) {
+    } else if (rand < 0.35) {
       return { type: 'LEAST_SPOKEN', players: [] };
     } else {
-      const maxToPick = Math.max(1, n - 1);
+      const maxToPick = Math.max(1, Math.min(2, n - 1));
       const k = Math.floor(Math.random() * maxToPick) + 1;
       const shuffledNames = shuffle(playerNames);
       const pickedPlayers = shuffledNames.slice(0, k);
@@ -74,6 +75,7 @@ const App: React.FC = () => {
 
   const handleShowFavorites = () => {
     const favoriteQuestions = QUESTIONS.filter(q => state.favorites.includes(q.id));
+    if (favoriteQuestions.length === 0) return;
     setState(prev => ({ 
       ...prev, 
       status: 'favorites',
@@ -94,6 +96,14 @@ const App: React.FC = () => {
       status: 'playing',
     });
     setTurnInfo(initialTurn);
+  };
+
+  const handleSwipe = (direction: 'left' | 'right') => {
+    if (direction === 'left') {
+      handleNext();
+    } else {
+      handlePrev();
+    }
   };
 
   const handleNext = () => {
@@ -150,35 +160,37 @@ const App: React.FC = () => {
     return turnInfo;
   }, [state.status, turnInfo]);
 
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-  const fanOffsetOuter = isMobile ? 80 : 140;
-  const fanOffsetInner = isMobile ? 40 : 70;
-
   return (
     <Layout>
-      <div className="flex flex-col items-center w-full max-w-lg overflow-hidden md:overflow-visible">
+      <div className="flex flex-col items-center w-full max-w-2xl h-full justify-center relative">
         {state.status === 'intro' && (
-          <div className="bg-[#F5F1E3] w-[280px] h-[420px] md:w-[340px] md:h-[500px] rounded-[1.5rem] p-10 flex flex-col justify-center items-center text-center shadow-2xl border-4 border-white/40 animate-fade-in">
-            <div className="space-y-6 flex-1 flex flex-col justify-center">
-              <h2 className="text-3xl font-serif font-bold text-[#5C4D42] leading-tight">
-                Bienvenido/a
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            className="bg-[#F5F1E3] w-[300px] h-[480px] md:w-[380px] md:h-[580px] rounded-[3rem] p-10 flex flex-col justify-center items-center text-center shadow-2xl border-4 border-white/40 relative overflow-hidden"
+          >
+            <div className="flex-1 flex flex-col justify-center items-center relative z-10 space-y-6">
+              <h2 className="text-4xl md:text-5xl font-serif font-bold text-[#5C4D42] tracking-wide">
+                δ ι α ν ο ι α
               </h2>
-              <div className="w-12 h-0.5 bg-[#5C4D42]/20 mx-auto"></div>
-              <p className="text-[#5C4D42]/60 text-sm leading-relaxed max-w-[200px]">
-                Un espacio para la charla real y el encuentro genuino.
+              
+              <p className="text-[11px] md:text-[12px] text-[#5C4D42]/80 leading-relaxed font-medium max-w-[260px]">
+                En la filosofía griega, Dianoia no es solo "pensar", es el proceso de la razón discursiva. Es la facultad que usamos para analizar nuestras vidas, cuestionar nuestras creencias y llegar a nuevas verdades a través del diálogo.
               </p>
             </div>
+            
             <button
               onClick={handleGoToSetup}
-              className="w-full bg-[#5C4D42] text-[#F5F1E3] py-5 rounded-full font-bold shadow-lg hover:bg-[#4A3E35] transition-all active:scale-95 text-sm uppercase tracking-widest"
+              className="w-full bg-[#5C4D42] text-[#F5F1E3] py-6 rounded-[2rem] font-bold shadow-xl hover:bg-[#4A3E35] transition-all active:scale-95 text-[12px] uppercase tracking-widest relative z-10 mt-4"
             >
-              Entrar
+              Comenzar
             </button>
-          </div>
+            <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-white/5 to-transparent pointer-events-none"></div>
+          </motion.div>
         )}
 
         {state.status === 'setup' && (
-          <div className="flex flex-col items-center gap-8 w-full">
+          <div className="flex flex-col items-center gap-8 w-full max-h-full py-6 overflow-hidden">
             <Setup 
               onStart={handleStartGame} 
               onShowFavorites={handleShowFavorites}
@@ -186,79 +198,92 @@ const App: React.FC = () => {
             />
             <button
               onClick={handleReset}
-              className="bg-white/40 border border-[#D4CDB4] text-[#5C4D42]/60 px-10 py-3 rounded-full font-bold hover:text-[#5C4D42] hover:bg-white/80 transition-all text-[10px] uppercase tracking-widest shadow-sm"
+              className="text-[#5C4D42]/40 px-8 py-3 rounded-full font-bold hover:text-[#5C4D42] hover:bg-white/40 transition-all text-[10px] uppercase tracking-[0.25em]"
             >
-              Volver al Inicio
+              ← Volver
             </button>
           </div>
         )}
 
         {(state.status === 'playing' || state.status === 'favorites') && state.currentQuestionIndex >= 0 && currentTurnInfo && (
-          <div className="flex flex-col items-center w-full">
-            <div className="relative flex items-center justify-center w-full h-[480px] md:h-[580px]">
-              <CardBack rotation={-15} offset={-fanOffsetOuter} zIndex={1} />
-              <CardBack rotation={-8} offset={-fanOffsetInner} zIndex={2} />
-              <CardBack rotation={8} offset={fanOffsetInner} zIndex={2} />
-              <CardBack rotation={15} offset={fanOffsetOuter} zIndex={1} />
-              
-              <div className="relative z-10 w-full flex justify-center">
+          <div className="flex flex-col items-center w-full h-full relative overflow-visible">
+            
+            {/* 
+              CARD STAGE
+              Este contenedor define el espacio físico de las cartas.
+              Tiene dimensiones fijas y position: relative para que los hijos absolute
+              se posicionen respecto a ÉL y no a la pantalla.
+            */}
+            <div className="flex-1 w-full flex items-center justify-center py-4">
+              <div className="relative w-[300px] h-[450px] md:w-[380px] md:h-[550px]">
+                
+                {/* Decorative Back Fan - contained inside the stage */}
+                <CardBack rotation={-6} offset={-20} zIndex={1} scale={0.92} opacity={0.5} />
+                <CardBack rotation={6} offset={20} zIndex={1} scale={0.92} opacity={0.5} />
+                <CardBack rotation={-3} offset={-10} zIndex={2} scale={0.95} opacity={0.7} />
+                <CardBack rotation={3} offset={10} zIndex={2} scale={0.95} opacity={0.7} />
+
+                {/* Live Cards */}
                 <AnimatePresence>
-                  <motion.div
-                    key={state.deck[state.currentQuestionIndex].id}
-                    initial={{ opacity: 0, scale: 0.95, y: 10 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 1.05, y: -10, position: 'absolute' }}
-                    transition={{ 
-                      type: "spring", 
-                      damping: 25, 
-                      stiffness: 400,
-                      opacity: { duration: 0.2 }
-                    }}
-                    className="w-full flex justify-center"
-                  >
+                  {/* NEXT CARD (Background) */}
+                  {state.currentQuestionIndex + 1 < state.deck.length && (
                     <Card
-                      question={state.deck[state.currentQuestionIndex]}
-                      turnInfo={state.status === 'favorites' ? { type: 'FAVORITE' as TurnType, players: [] } : currentTurnInfo}
-                      isFavorite={state.favorites.includes(state.deck[state.currentQuestionIndex].id)}
-                      onToggleFavorite={() => toggleFavorite(state.deck[state.currentQuestionIndex].id)}
-                      onNext={handleNext}
-                      onPrev={handlePrev}
+                      key={state.deck[state.currentQuestionIndex + 1].id}
+                      question={state.deck[state.currentQuestionIndex + 1]}
+                      turnInfo={{ type: 'ALL', players: [] }}
+                      isFavorite={state.favorites.includes(state.deck[state.currentQuestionIndex + 1].id)}
+                      isBackground={true}
+                      onToggleFavorite={() => {}}
+                      onSwipe={() => {}}
                     />
-                  </motion.div>
+                  )}
+
+                  {/* CURRENT CARD (Active) */}
+                  <Card
+                    key={state.deck[state.currentQuestionIndex].id}
+                    question={state.deck[state.currentQuestionIndex]}
+                    turnInfo={state.status === 'favorites' ? { type: 'FAVORITE' as TurnType, players: [] } : currentTurnInfo}
+                    isFavorite={state.favorites.includes(state.deck[state.currentQuestionIndex].id)}
+                    isBackground={false}
+                    onToggleFavorite={() => toggleFavorite(state.deck[state.currentQuestionIndex].id)}
+                    onSwipe={handleSwipe}
+                  />
                 </AnimatePresence>
               </div>
             </div>
             
-            <div className="mt-4 md:mt-4 mb-14 animate-fade-in relative z-20">
+            <div className="pb-10 shrink-0 z-20">
               <button
                 onClick={handleReset}
-                className="bg-[#FAF9F6]/90 border-2 border-[#D4CDB4]/40 text-[#5C4D42]/70 px-8 py-2.5 rounded-full font-bold hover:text-[#5C4D42] hover:bg-white transition-all text-[10px] uppercase tracking-[0.15em] shadow-md active:scale-95 backdrop-blur-sm"
+                className="bg-white/40 border border-[#D4CDB4]/40 text-[#5C4D42]/40 px-10 py-4 rounded-full font-bold hover:text-[#5C4D42] hover:bg-white transition-all text-[10px] uppercase tracking-[0.2em] shadow-sm backdrop-blur-md"
               >
-                Volver al Inicio
+                Finalizar Sesión
               </button>
             </div>
           </div>
         )}
 
         {state.status === 'finished' && (
-          <div className="flex flex-col items-center gap-12">
-            <div className="bg-[#F5F1E3] w-[280px] h-[420px] md:w-[340px] md:h-[500px] rounded-[1.5rem] p-10 text-center shadow-2xl border-4 border-white/40 flex flex-col justify-between animate-fade-in">
-              <div className="space-y-6 flex-1 flex flex-col justify-center">
-                <h2 className="text-2xl font-serif font-bold text-[#5C4D42]">Mazo terminado</h2>
-                <div className="w-8 h-0.5 bg-[#5C4D42]/20 mx-auto"></div>
-                <p className="text-sm text-[#5C4D42]/60 leading-relaxed italic">
-                  "Lo que queda después de hablar es lo que realmente importa."
-                </p>
-              </div>
-              <p className="text-[10px] text-[#5C4D42]/40 uppercase tracking-widest mb-4 font-bold">¡Gracias por compartir!</p>
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="flex flex-col items-center gap-10 text-center"
+          >
+            <div className="bg-[#F5F1E3] w-[300px] h-[400px] md:w-[380px] md:h-[480px] rounded-[3rem] p-12 shadow-2xl border-4 border-white/40 flex flex-col justify-center items-center relative overflow-hidden">
+              <h2 className="text-3xl font-serif font-bold text-[#5C4D42] mb-6 italic leading-snug">Fin del mazo</h2>
+              <div className="w-10 h-1 bg-[#5C4D42]/10 mx-auto mb-8 rounded-full"></div>
+              <p className="text-sm text-[#5C4D42]/60 leading-relaxed font-medium">
+                Gracias por permitirte<br/><span className="italic">conectar</span> con el resto.
+              </p>
+              <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-[#8B735B]/5 rounded-full blur-2xl"></div>
             </div>
             <button
               onClick={handleReset}
-              className="bg-[#5C4D42] text-[#F5F1E3] px-14 py-4 rounded-full font-bold hover:bg-[#4A3E35] transition-all text-xs uppercase tracking-widest shadow-xl active:scale-95"
+              className="bg-[#5C4D42] text-[#F5F1E3] px-14 py-6 rounded-[2rem] font-bold shadow-2xl active:scale-95 text-[13px] uppercase tracking-[0.2em] hover:bg-[#4A3E35] transition-colors"
             >
-              Nuevo Juego
+              Nuevo Comienzo
             </button>
-          </div>
+          </motion.div>
         )}
       </div>
     </Layout>

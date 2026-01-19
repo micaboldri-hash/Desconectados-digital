@@ -3,6 +3,7 @@ export interface Question {
   id: number;
   text: string;
   category?: string;
+  followUps?: string[];
 }
 
 export interface Player {
