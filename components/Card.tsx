@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { motion, useMotionValue, useTransform, AnimatePresence, useAnimation, PanInfo, Variants } from 'framer-motion';
 import { Question, TurnInfo } from '../types';
@@ -42,7 +41,7 @@ const Card: React.FC<CardProps> = ({
   
   // Motion values for drag gestures
   const x = useMotionValue(0);
-  const rotate = useTransform(x, [-300, 300], [-18, 18]);
+  const rotate = useTransform(x, [-300, 300], [-12, 12]); // Reduced rotation for smoother feel
   const opacity = useTransform(x, [-400, -200, 0, 200, 400], [0, 1, 1, 1, 0]);
   
   // Labels opacity
@@ -56,7 +55,6 @@ const Card: React.FC<CardProps> = ({
 
   useEffect(() => {
     setExtraQuestion(null);
-    // Reinicio forzado e instantáneo de la posición y controles
     x.set(0);
     controls.set({ x: 0, opacity: 1, rotate: 0 });
   }, [question.id, isBackground, x, controls]);
@@ -64,7 +62,6 @@ const Card: React.FC<CardProps> = ({
   const handleProfundizar = () => {
     if (extraQuestion) return;
     
-    // Usamos las preguntas precargadas en el archivo questions.ts en lugar de la IA
     const options = question.followUps && question.followUps.length > 0 
       ? question.followUps 
       : [
@@ -81,7 +78,6 @@ const Card: React.FC<CardProps> = ({
     const swipeThreshold = 100;
     const velocityThreshold = 400;
 
-    // Si el usuario soltó la carta lejos del centro, completamos el swipe
     if (info.offset.x < -swipeThreshold || info.velocity.x < -velocityThreshold) {
       await controls.start({ x: -500, opacity: 0, transition: { duration: 0.2 } });
       onSwipe('left');
@@ -89,7 +85,6 @@ const Card: React.FC<CardProps> = ({
       await controls.start({ x: 500, opacity: 0, transition: { duration: 0.2 } });
       onSwipe('right');
     } else {
-      // Si no, vuelve al centro (snap back)
       controls.start({ x: 0, opacity: 1, rotate: 0, transition: { type: "spring", damping: 25, stiffness: 400 } });
     }
   };
@@ -114,19 +109,22 @@ const Card: React.FC<CardProps> = ({
       y: 0,
       opacity: 1,
       pointerEvents: "auto",
-      transition: { type: "spring", stiffness: 260, damping: 20 }
+      transition: { 
+        type: "spring", stiffness: 260, damping: 20,
+        pointerEvents: { duration: 0 } // Enable interaction immediately
+      }
     },
     back: {
       zIndex: 5,
-      scale: 0.92,
-      y: 15,
-      opacity: 0.6,
+      scale: 0.95,
+      y: 12,
+      opacity: 0.7,
       pointerEvents: "none",
       transition: { duration: 0.4, ease: "easeInOut" }
     },
     hidden: {
-      scale: 0.85,
-      y: 30,
+      scale: 0.9,
+      y: 20,
       opacity: 0,
       zIndex: 0
     },
@@ -149,7 +147,8 @@ const Card: React.FC<CardProps> = ({
       style={{ zIndex: isBackground ? 5 : 10 }}
     >
       <motion.div 
-        drag={isBackground ? false : "x"}
+        drag="x"
+        dragListener={!isBackground}
         dragElastic={0.7}
         onDragEnd={handleDragEnd}
         animate={controls}
@@ -157,12 +156,12 @@ const Card: React.FC<CardProps> = ({
         whileTap={{ cursor: "grabbing" }}
         className={`
           w-full h-full
-          rounded-[2.5rem] p-10 md:p-14 
+          rounded-[2.5rem] p-8 md:p-14 
           flex flex-col justify-between items-center text-center 
-          shadow-2xl border-4 border-white/40 
+          shadow-lg border-2 border-white/60 
           cursor-grab select-none overflow-hidden
           transition-shadow duration-300
-          ${isBackground ? 'shadow-sm' : 'shadow-2xl'}
+          ${isBackground ? 'shadow-md' : 'shadow-xl'}
         `}
       >
         {!isBackground && (
@@ -182,6 +181,7 @@ const Card: React.FC<CardProps> = ({
             </motion.div>
 
             <button 
+              onPointerDown={(e) => e.stopPropagation()}
               onClick={(e) => { e.stopPropagation(); onToggleFavorite(); }}
               className="absolute top-10 right-10 focus:outline-none hover:scale-110 transition-transform z-20 p-2"
             >
@@ -190,7 +190,7 @@ const Card: React.FC<CardProps> = ({
           </>
         )}
 
-        <div className="flex-1 flex flex-col justify-center items-center gap-8 mt-6 pointer-events-none">
+        <div className="flex-1 flex flex-col justify-center items-center gap-6 md:gap-8 mt-6 pointer-events-none">
           <p className="text-[10px] md:text-[11px] font-bold text-[#5C4D42]/30 uppercase tracking-[0.4em] mb-2">
             {getTurnText()}
           </p>
@@ -227,7 +227,7 @@ const Card: React.FC<CardProps> = ({
                 onClick={handleProfundizar}
                 className="group flex flex-col items-center gap-3 transition-all active:scale-90"
               >
-                <div className="w-12 h-12 rounded-full bg-white/60 border-2 border-[#8B735B]/10 flex items-center justify-center shadow-lg group-hover:bg-white group-hover:border-[#8B735B]/30 transition-all">
+                <div className="w-12 h-12 rounded-full bg-white/60 border-2 border-[#8B735B]/10 flex items-center justify-center shadow-md group-hover:bg-white group-hover:border-[#8B735B]/30 transition-all">
                   <span className="text-[#8B735B] text-2xl">✦</span>
                 </div>
                 <span className="text-[10px] font-bold text-[#8B735B]/50 uppercase tracking-[0.25em] group-hover:text-[#8B735B] transition-colors">
@@ -235,16 +235,6 @@ const Card: React.FC<CardProps> = ({
                 </span>
               </button>
             )}
-          </div>
-        )}
-        
-        {!isBackground && (
-          <div className="absolute bottom-6 left-0 w-full flex justify-center opacity-10 pointer-events-none">
-            <div className="flex gap-6 items-center">
-              <span className="text-[14px]">←</span>
-              <div className="w-1.5 h-1.5 rounded-full bg-[#5C4D42]/40"></div>
-              <span className="text-[14px]">→</span>
-            </div>
           </div>
         )}
       </motion.div>

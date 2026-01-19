@@ -1,4 +1,3 @@
-
 import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import Layout from './components/Layout';
@@ -6,23 +5,6 @@ import Setup from './components/Setup';
 import Card from './components/Card';
 import { Player, Question, GameState, TurnInfo, TurnType } from './types';
 import { QUESTIONS } from './questions';
-
-const CardBack = ({ rotation, offset, zIndex, scale = 1, opacity = 1 }: { rotation: number, offset: number, zIndex: number, scale?: number, opacity?: number }) => (
-  <div 
-    className="absolute top-0 left-0 w-full h-full rounded-[2.5rem] bg-[#F5F1E3] border-2 border-white/60 shadow-xl flex items-center justify-center overflow-hidden transition-all duration-700 pointer-events-none origin-bottom"
-    style={{ 
-      transform: `translateX(${offset}px) rotate(${rotation}deg) scale(${scale})`,
-      zIndex: zIndex,
-      opacity: opacity
-    }}
-  >
-    <div className="w-full h-full opacity-[0.02] flex flex-wrap gap-2 p-6 justify-center items-center">
-       {Array.from({ length: 80 }).map((_, i) => (
-        <div key={i} className="w-5 h-5 rounded-full border border-[#5C4D42]"></div>
-      ))}
-    </div>
-  </div>
-);
 
 const App: React.FC = () => {
   const [state, setState] = useState<GameState>({
@@ -167,7 +149,7 @@ const App: React.FC = () => {
           <motion.div 
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            className="bg-[#F5F1E3] w-[300px] h-[480px] md:w-[380px] md:h-[580px] rounded-[3rem] p-10 flex flex-col justify-center items-center text-center shadow-2xl border-4 border-white/40 relative overflow-hidden"
+            className="bg-[#F5F1E3] w-[300px] h-[480px] md:w-[380px] md:h-[580px] rounded-[3rem] p-10 flex flex-col justify-center items-center text-center shadow-xl border-4 border-white/40 relative overflow-hidden"
           >
             <div className="flex-1 flex flex-col justify-center items-center relative z-10 space-y-6">
               <h2 className="text-4xl md:text-5xl font-serif font-bold text-[#5C4D42] tracking-wide">
@@ -181,7 +163,7 @@ const App: React.FC = () => {
             
             <button
               onClick={handleGoToSetup}
-              className="w-full bg-[#5C4D42] text-[#F5F1E3] py-6 rounded-[2rem] font-bold shadow-xl hover:bg-[#4A3E35] transition-all active:scale-95 text-[12px] uppercase tracking-widest relative z-10 mt-4"
+              className="w-full bg-[#5C4D42] text-[#F5F1E3] py-6 rounded-[2rem] font-bold shadow-lg hover:bg-[#4A3E35] transition-all active:scale-95 text-[12px] uppercase tracking-widest relative z-10 mt-4"
             >
               Comenzar
             </button>
@@ -208,20 +190,17 @@ const App: React.FC = () => {
         {(state.status === 'playing' || state.status === 'favorites') && state.currentQuestionIndex >= 0 && currentTurnInfo && (
           <div className="flex flex-col items-center w-full h-full relative overflow-visible">
             
-            {/* 
-              CARD STAGE
-              Este contenedor define el espacio físico de las cartas.
-              Tiene dimensiones fijas y position: relative para que los hijos absolute
-              se posicionen respecto a ÉL y no a la pantalla.
-            */}
             <div className="flex-1 w-full flex items-center justify-center py-4">
               <div className="relative w-[300px] h-[450px] md:w-[380px] md:h-[550px]">
                 
-                {/* Decorative Back Fan - contained inside the stage */}
-                <CardBack rotation={-6} offset={-20} zIndex={1} scale={0.92} opacity={0.5} />
-                <CardBack rotation={6} offset={20} zIndex={1} scale={0.92} opacity={0.5} />
-                <CardBack rotation={-3} offset={-10} zIndex={2} scale={0.95} opacity={0.7} />
-                <CardBack rotation={3} offset={10} zIndex={2} scale={0.95} opacity={0.7} />
+                {/* Single decorative background to imply depth without heavy rendering */}
+                <div 
+                  className="absolute top-0 left-0 w-full h-full rounded-[2.5rem] bg-[#EFEADF] border-2 border-white/40 shadow-sm"
+                  style={{ 
+                    transform: 'rotate(-4deg) scale(0.95)',
+                    zIndex: 0
+                  }}
+                />
 
                 {/* Live Cards */}
                 <AnimatePresence mode="popLayout">
