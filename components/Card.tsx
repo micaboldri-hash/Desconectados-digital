@@ -56,8 +56,10 @@ const Card: React.FC<CardProps> = ({
 
   useEffect(() => {
     setExtraQuestion(null);
+    // Reinicio forzado e instantáneo de la posición y controles
     x.set(0);
-  }, [question.id, x]);
+    controls.set({ x: 0, opacity: 1, rotate: 0 });
+  }, [question.id, isBackground, x, controls]);
 
   const handleProfundizar = () => {
     if (extraQuestion) return;
@@ -79,6 +81,7 @@ const Card: React.FC<CardProps> = ({
     const swipeThreshold = 100;
     const velocityThreshold = 400;
 
+    // Si el usuario soltó la carta lejos del centro, completamos el swipe
     if (info.offset.x < -swipeThreshold || info.velocity.x < -velocityThreshold) {
       await controls.start({ x: -500, opacity: 0, transition: { duration: 0.2 } });
       onSwipe('left');
@@ -86,7 +89,8 @@ const Card: React.FC<CardProps> = ({
       await controls.start({ x: 500, opacity: 0, transition: { duration: 0.2 } });
       onSwipe('right');
     } else {
-      controls.start({ x: 0, rotate: 0, transition: { type: "spring", damping: 20, stiffness: 300 } });
+      // Si no, vuelve al centro (snap back)
+      controls.start({ x: 0, opacity: 1, rotate: 0, transition: { type: "spring", damping: 25, stiffness: 400 } });
     }
   };
 
@@ -146,8 +150,7 @@ const Card: React.FC<CardProps> = ({
     >
       <motion.div 
         drag={isBackground ? false : "x"}
-        dragConstraints={{ left: 0, right: 0 }}
-        dragElastic={0.1}
+        dragElastic={0.7}
         onDragEnd={handleDragEnd}
         animate={controls}
         style={{ x, rotate, backgroundColor: color, touchAction: "none" }}

@@ -224,7 +224,7 @@ const App: React.FC = () => {
                 <CardBack rotation={3} offset={10} zIndex={2} scale={0.95} opacity={0.7} />
 
                 {/* Live Cards */}
-                <AnimatePresence>
+                <AnimatePresence mode="popLayout">
                   {/* NEXT CARD (Background) */}
                   {state.currentQuestionIndex + 1 < state.deck.length && (
                     <Card
