@@ -1,13 +1,17 @@
-
 import { GoogleGenAI, Type } from "@google/genai";
 
 export interface DeepContent {
   followup: string;
 }
 
+export interface ImpostorClue {
+  hint: string;
+}
+
+const getAiClient = () => new GoogleGenAI({ apiKey: process.env.API_KEY });
+
 export async function getDeepContent(question: string): Promise<DeepContent> {
-  // Inicializamos el cliente justo antes de usarlo para asegurar que process.env.API_KEY esté disponible
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+  const ai = getAiClient();
   const model = 'gemini-3-flash-preview';
   
   const systemInstruction = `
@@ -46,5 +50,44 @@ export async function getDeepContent(question: string): Promise<DeepContent> {
     return {
       followup: "¿Qué otra cosa te genera pensar en esto?"
     };
+  }
+}
+
+export async function getImpostorClue(word: string, isImpostor: boolean): Promise<ImpostorClue> {
+  const ai = getAiClient();
+  const model = 'gemini-3-flash-preview';
+
+  const roleInstruction = isImpostor 
+    ? "El usuario es el IMPOSTOR. No sabe la palabra secreta. Dale solo la CATEGORÍA general a la que podría pertenecer la palabra oculta para ayudarlo a mentir (ej: 'Comida', 'Lugar', 'Objeto')."
+    : `El usuario es un CIVIL y conoce la palabra secreta: '${word}'. Dale una pista sutil, un uso o una característica visual breve. No digas la palabra.`;
+
+  const systemInstruction = `
+    Eres el asistente del juego "El Impostor" (versión Argentina).
+    Tu tarea es dar una pista muy breve (máximo 6 palabras).
+    ${roleInstruction}
+  `;
+
+  try {
+    const response = await ai.models.generateContent({
+      model,
+      contents: `Palabra clave (si aplica): ${word}`,
+      config: {
+        systemInstruction,
+        temperature: 0.5,
+        responseMimeType: "application/json",
+        responseSchema: {
+          type: Type.OBJECT,
+          properties: {
+            hint: { type: Type.STRING, description: "La pista o categoría" }
+          },
+          required: ["hint"]
+        }
+      },
+    });
+
+    const data = JSON.parse(response.text || "{}");
+    return { hint: data.hint || (isImpostor ? "Algo general..." : "Es algo común.") };
+  } catch (error) {
+    return { hint: isImpostor ? "Intenta adivinar el contexto." : "Es algo muy argentino." };
   }
 }

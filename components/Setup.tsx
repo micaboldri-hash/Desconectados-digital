@@ -1,15 +1,21 @@
-
 import React, { useState } from 'react';
 import { Player } from '../types';
 
 interface SetupProps {
   onStart: (players: Player[]) => void;
   onShowFavorites: () => void;
+  onBack: () => void;
   favoritesCount: number;
+  initialPlayers?: Player[];
 }
 
-const Setup: React.FC<SetupProps> = ({ onStart, onShowFavorites, favoritesCount }) => {
-  const [names, setNames] = useState<string[]>(['', '']);
+const Setup: React.FC<SetupProps> = ({ onStart, onShowFavorites, onBack, favoritesCount, initialPlayers }) => {
+  const [names, setNames] = useState<string[]>(() => {
+    if (initialPlayers && initialPlayers.length > 0) {
+      return initialPlayers.map(p => p.name);
+    }
+    return ['', ''];
+  });
 
   const handleAddPlayer = () => {
     setNames([...names, '']);
@@ -42,7 +48,19 @@ const Setup: React.FC<SetupProps> = ({ onStart, onShowFavorites, favoritesCount 
 
   return (
     <div className="bg-[#F5F1E3] w-[300px] h-[520px] md:w-[400px] md:h-[600px] rounded-[2.5rem] p-8 md:p-12 shadow-2xl border-4 border-white/40 flex flex-col animate-fade-in relative overflow-hidden">
-      <div className="flex-1 flex flex-col overflow-hidden">
+      
+      {/* Botón Volver (Flecha) */}
+      <button 
+        onClick={onBack}
+        className="absolute top-6 left-6 w-10 h-10 flex items-center justify-center rounded-full bg-[#5C4D42]/10 text-[#5C4D42] hover:bg-[#5C4D42] hover:text-[#F5F1E3] transition-all z-20"
+        title="Volver"
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+      </button>
+
+      <div className="flex-1 flex flex-col overflow-hidden mt-4">
         <div className="text-center shrink-0 mb-6">
           <h2 className="text-2xl font-serif font-bold text-[#5C4D42]">Integrantes</h2>
           <p className="text-[10px] text-[#5C4D42]/40 uppercase tracking-widest mt-1">¿Quiénes están presentes?</p>

@@ -1,0 +1,1 @@
+// File deprecated. See data/impostorData.ts

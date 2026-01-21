@@ -1,4 +1,3 @@
-
 export interface Question {
   id: number;
   text: string;
@@ -11,17 +10,31 @@ export interface Player {
   name: string;
 }
 
-export interface GameState {
-  players: Player[];
+export type GameMode = 'dianoia' | 'impostor';
+
+export interface DianoiaState {
   currentQuestionIndex: number;
   deck: Question[];
   favorites: number[];
-  status: 'intro' | 'setup' | 'playing' | 'favorites' | 'finished';
+  turnInfo: TurnInfo | null;
+  status: 'playing' | 'favorites' | 'finished';
 }
-
-export type TurnType = 'ALL' | 'SINGLE' | 'DUO' | 'GROUP' | 'READER' | 'LEAST_SPOKEN' | 'FAVORITE';
 
 export interface TurnInfo {
   type: TurnType;
   players: string[];
+}
+
+export type TurnType = 'ALL' | 'SINGLE' | 'DUO' | 'GROUP' | 'READER' | 'LEAST_SPOKEN' | 'FAVORITE';
+
+export type ImpostorPhase = 'setup' | 'distribution' | 'round' | 'voting';
+
+export interface ImpostorWord {
+  word: string;
+  hint: string; // Palabra relacionada
+}
+
+export interface ImpostorConfig {
+  impostorCount: number;
+  allowHints: boolean;
 }
