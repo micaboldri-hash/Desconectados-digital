@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import Layout from './components/Layout';
@@ -5,6 +6,7 @@ import Setup from './components/Setup';
 import GameMenu from './components/GameMenu';
 import DianoiaGame from './components/DianoiaGame';
 import ImpostorGame from './components/ImpostorGame';
+import TabuGame from './components/TabuGame';
 import Landing from './components/Landing';
 import { Player, GameMode } from './types';
 
@@ -92,8 +94,10 @@ const App: React.FC = () => {
           >
             {activeGame === 'dianoia' ? (
               <DianoiaGame players={players} onExit={handleExitGame} />
-            ) : (
+            ) : activeGame === 'impostor' ? (
               <ImpostorGame players={players} onExit={handleExitGame} />
+            ) : (
+              <TabuGame players={players} onExit={handleExitGame} />
             )}
           </motion.div>
         )}

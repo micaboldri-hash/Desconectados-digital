@@ -1,3 +1,4 @@
+
 export interface Question {
   id: number;
   text: string;
@@ -10,7 +11,7 @@ export interface Player {
   name: string;
 }
 
-export type GameMode = 'dianoia' | 'impostor';
+export type GameMode = 'dianoia' | 'impostor' | 'tabu';
 
 export interface DianoiaState {
   currentQuestionIndex: number;
@@ -37,4 +38,25 @@ export interface ImpostorWord {
 export interface ImpostorConfig {
   impostorCount: number;
   allowHints: boolean;
+}
+
+// TABÚ TYPES
+export type TabuDifficulty = 'facil' | 'medio' | 'dificil';
+
+export interface TabuWord {
+  word: string;
+  forbidden: string[];
+}
+
+export interface Team {
+  id: number;
+  name: string;
+  players: Player[];
+  score: number;
+}
+
+export interface TabuConfig {
+  teams: Team[];
+  turnDuration: number; // segundos
+  difficulty: TabuDifficulty;
 }
