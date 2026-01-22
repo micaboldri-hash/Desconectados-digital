@@ -39,7 +39,10 @@ const App: React.FC = () => {
   };
 
   return (
-    <Layout withHeader={screen !== 'landing'}>
+    <Layout 
+      withHeader={screen !== 'landing'} 
+      headerVariant={screen === 'game' ? 'compact' : 'default'}
+    >
       <AnimatePresence mode="wait">
         {screen === 'landing' && (
           <motion.div 

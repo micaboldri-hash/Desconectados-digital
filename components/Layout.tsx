@@ -1,11 +1,13 @@
+
 import React from 'react';
 
 interface LayoutProps {
   children: React.ReactNode;
   withHeader?: boolean;
+  headerVariant?: 'default' | 'compact';
 }
 
-const Layout: React.FC<LayoutProps> = ({ children, withHeader = true }) => {
+const Layout: React.FC<LayoutProps> = ({ children, withHeader = true, headerVariant = 'default' }) => {
   return (
     <div className="h-[100dvh] w-full bg-[#FAF9F6] flex flex-col items-center overflow-hidden relative paper-texture selection:bg-[#8B735B]/20">
       <div className="absolute inset-0 z-0 pointer-events-none" style={{
@@ -14,9 +16,9 @@ const Layout: React.FC<LayoutProps> = ({ children, withHeader = true }) => {
       
       <div className="w-full max-w-2xl mx-auto flex flex-col h-full relative z-10 px-4 md:px-8">
         {withHeader && (
-          <header className="pt-8 pb-4 shrink-0 flex flex-col items-center justify-center gap-4 animate-fade-in-up">
+          <header className={`shrink-0 flex items-center justify-center animate-fade-in-up transition-all duration-500 ${headerVariant === 'compact' ? 'pt-4 pb-2 gap-3 flex-row' : 'pt-8 pb-4 flex-col gap-4'}`}>
             {/* Logo Doble Infinito Desfasado */}
-            <div className="text-[#5C4D42] opacity-80 flex flex-col items-center relative">
+            <div className={`text-[#5C4D42] opacity-80 flex flex-col items-center relative transition-transform ${headerVariant === 'compact' ? 'scale-75' : 'scale-100'}`}>
                <svg width="80" height="28" viewBox="0 0 100 40" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
                 <defs>
                   {/* Definición de un infinito centrado */}
@@ -30,13 +32,13 @@ const Layout: React.FC<LayoutProps> = ({ children, withHeader = true }) => {
                 <use href="#singleInfinity" x="8" strokeWidth="1.2" />
               </svg>
             </div>
-            <h1 className="text-[14px] md:text-[16px] font-serif font-bold text-[#5C4D42] tracking-[0.4em] uppercase opacity-90 pl-1">
+            <h1 className={`font-serif font-bold text-[#5C4D42] tracking-[0.4em] uppercase opacity-90 pl-1 transition-all ${headerVariant === 'compact' ? 'text-[10px]' : 'text-[14px] md:text-[16px]'}`}>
               ITERABLE
             </h1>
           </header>
         )}
         <main className="flex-1 w-full relative overflow-y-auto overflow-x-hidden custom-scrollbar">
-          <div className="min-h-full w-full flex flex-col justify-center items-center py-6">
+          <div className="min-h-full w-full flex flex-col justify-center items-center py-2 md:py-6">
             {children}
           </div>
         </main>

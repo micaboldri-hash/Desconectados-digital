@@ -14,6 +14,7 @@ interface TabuGameProps {
 const TabuGame: React.FC<TabuGameProps> = ({ players, onExit }) => {
   const [config, setConfig] = useState<TabuConfig | null>(null);
   const [phase, setPhase] = useState<'setup' | 'ready' | 'playing' | 'summary'>('setup');
+  const [isPaused, setIsPaused] = useState(false);
   
   // Game State
   const [currentTeamIndex, setCurrentTeamIndex] = useState(0);
@@ -42,6 +43,7 @@ const TabuGame: React.FC<TabuGameProps> = ({ players, onExit }) => {
     setCurrentRoundScore(0);
     setTimeLeft(config.turnDuration);
     setPhase('playing');
+    setIsPaused(false);
   };
 
   const endTurn = useCallback(() => {
@@ -56,17 +58,19 @@ const TabuGame: React.FC<TabuGameProps> = ({ players, onExit }) => {
   // Timer
   useEffect(() => {
     let interval: ReturnType<typeof setInterval>;
-    if (phase === 'playing' && timeLeft > 0) {
+    if (phase === 'playing' && timeLeft > 0 && !isPaused) {
       interval = setInterval(() => {
         setTimeLeft((prev) => prev - 1);
       }, 1000);
-    } else if (phase === 'playing' && timeLeft === 0) {
+    } else if (phase === 'playing' && timeLeft === 0 && !isPaused) {
       endTurn();
     }
     return () => clearInterval(interval);
-  }, [phase, timeLeft, endTurn]);
+  }, [phase, timeLeft, endTurn, isPaused]);
 
   const handleSwipe = (result: 'correct' | 'tabu' | 'skip') => {
+    if (isPaused) return;
+
     // Sound effect could go here
     let points = 0;
     if (result === 'correct') points = 5;
@@ -126,12 +130,20 @@ const TabuGame: React.FC<TabuGameProps> = ({ players, onExit }) => {
           </div>
         </motion.div>
 
-        <button
-          onClick={startTurn}
-          className="bg-[#5C4D42] text-[#F5F1E3] px-12 py-5 rounded-full font-bold shadow-xl active:scale-95 text-[12px] uppercase tracking-[0.2em] hover:bg-[#4A3E35] transition-all"
-        >
-          Empezar
-        </button>
+        <div className="flex flex-col gap-4 w-full max-w-xs">
+            <button
+            onClick={startTurn}
+            className="bg-[#5C4D42] text-[#F5F1E3] px-12 py-5 rounded-full font-bold shadow-xl active:scale-95 text-[12px] uppercase tracking-[0.2em] hover:bg-[#4A3E35] transition-all"
+            >
+            Empezar
+            </button>
+            <button
+                onClick={onExit}
+                className="text-[#5C4D42]/60 hover:text-[#5C4D42] font-bold uppercase tracking-widest text-[10px]"
+            >
+                Volver
+            </button>
+        </div>
       </div>
     );
   }
@@ -140,22 +152,38 @@ const TabuGame: React.FC<TabuGameProps> = ({ players, onExit }) => {
     return (
       <div className="w-full h-full flex flex-col items-center relative overflow-hidden">
         {/* Top Bar */}
-        <div className="w-full px-6 pt-4 flex justify-between items-center z-20 gap-2 max-w-md mx-auto">
-          <div className="bg-white/80 backdrop-blur px-4 py-3 rounded-2xl border border-[#D4CDB4] shadow-sm min-w-[70px] text-center flex flex-col justify-center">
-            <span className="text-[10px] uppercase tracking-wider text-[#5C4D42]/50 leading-none mb-1">Tiempo</span>
-            <span className="font-bold text-[#5C4D42] text-xl leading-none">{timeLeft}s</span>
+        <div className="w-full px-4 pt-2 flex justify-between items-center z-20 gap-2 max-w-md mx-auto">
+          {/* Time */}
+          <div className="bg-white/80 backdrop-blur px-3 py-2 rounded-2xl border border-[#D4CDB4] shadow-sm min-w-[60px] text-center flex flex-col justify-center">
+            <span className="text-[9px] uppercase tracking-wider text-[#5C4D42]/50 leading-none mb-1">Tiempo</span>
+            <span className="font-bold text-[#5C4D42] text-lg leading-none">{timeLeft}s</span>
           </div>
           
+          {/* Skip Button */}
           <button
             onClick={() => handleSwipe('skip')}
-            className="bg-[#5C4D42] text-[#F5F1E3] px-6 py-3 rounded-2xl font-bold uppercase tracking-widest text-[10px] shadow-lg hover:bg-[#4A3E35] active:scale-95 transition-all"
+            disabled={isPaused}
+            className="bg-[#5C4D42] text-[#F5F1E3] px-5 py-3 rounded-2xl font-bold uppercase tracking-widest text-[10px] shadow-lg hover:bg-[#4A3E35] active:scale-95 transition-all flex-1 mx-1 disabled:opacity-50"
           >
             Saltear
           </button>
 
-          <div className="bg-white/80 backdrop-blur px-4 py-3 rounded-2xl border border-[#D4CDB4] shadow-sm min-w-[70px] text-center flex flex-col justify-center">
-             <span className="text-[10px] uppercase tracking-wider text-[#8B735B]/50 leading-none mb-1">Puntos</span>
-             <span className="font-bold text-[#8B735B] text-xl leading-none">{currentRoundScore}</span>
+          <div className="flex items-center gap-2">
+             {/* Score */}
+            <div className="bg-white/80 backdrop-blur px-3 py-2 rounded-2xl border border-[#D4CDB4] shadow-sm min-w-[60px] text-center flex flex-col justify-center">
+                <span className="text-[9px] uppercase tracking-wider text-[#8B735B]/50 leading-none mb-1">Puntos</span>
+                <span className="font-bold text-[#8B735B] text-lg leading-none">{currentRoundScore}</span>
+            </div>
+            
+            {/* Pause Button */}
+            <button 
+                onClick={() => setIsPaused(true)}
+                className="bg-white/80 backdrop-blur w-10 h-10 flex items-center justify-center rounded-2xl border border-[#D4CDB4] shadow-sm text-[#5C4D42] hover:bg-white active:scale-95 transition-all"
+            >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
+                </svg>
+            </button>
           </div>
         </div>
 
@@ -172,6 +200,40 @@ const TabuGame: React.FC<TabuGameProps> = ({ players, onExit }) => {
               </AnimatePresence>
            </div>
         </div>
+
+        {/* Pause Overlay */}
+        <AnimatePresence>
+            {isPaused && (
+                <motion.div 
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="absolute inset-0 z-50 bg-[#F5F1E3]/80 backdrop-blur-md flex flex-col items-center justify-center p-6"
+                >
+                    <motion.div 
+                        initial={{ scale: 0.9, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        className="bg-white p-8 rounded-[2rem] shadow-2xl border border-[#D4CDB4] w-full max-w-xs text-center"
+                    >
+                        <h2 className="text-2xl font-serif font-bold text-[#5C4D42] mb-6">Pausa</h2>
+                        <div className="flex flex-col gap-3">
+                            <button 
+                                onClick={() => setIsPaused(false)}
+                                className="bg-[#5C4D42] text-[#F5F1E3] py-4 rounded-xl font-bold uppercase tracking-widest text-xs shadow-lg"
+                            >
+                                Reanudar
+                            </button>
+                            <button 
+                                onClick={onExit}
+                                className="border-2 border-[#5C4D42]/10 text-[#5C4D42] py-4 rounded-xl font-bold uppercase tracking-widest text-xs hover:bg-[#5C4D42]/5"
+                            >
+                                Salir del Juego
+                            </button>
+                        </div>
+                    </motion.div>
+                </motion.div>
+            )}
+        </AnimatePresence>
       </div>
     );
   }
