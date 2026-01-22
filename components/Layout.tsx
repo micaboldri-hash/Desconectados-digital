@@ -35,8 +35,10 @@ const Layout: React.FC<LayoutProps> = ({ children, withHeader = true }) => {
             </h1>
           </header>
         )}
-        <main className="flex-1 w-full flex flex-col justify-center items-center relative overflow-visible">
-          {children}
+        <main className="flex-1 w-full relative overflow-y-auto overflow-x-hidden custom-scrollbar">
+          <div className="min-h-full w-full flex flex-col justify-center items-center py-6">
+            {children}
+          </div>
         </main>
       </div>
     </div>

@@ -46,7 +46,7 @@ const App: React.FC = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0, scale: 1.05, filter: "blur(4px)" }}
             transition={{ duration: 0.8 }}
-            className="w-full h-full"
+            className="w-full min-h-full flex items-center justify-center"
           >
             <Landing onEnter={handleEnterApp} />
           </motion.div>
@@ -59,7 +59,7 @@ const App: React.FC = () => {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ duration: 0.5 }}
-            className="w-full h-full"
+            className="w-full min-h-full flex items-center justify-center"
           >
             <GameMenu onSelect={handleGameSelect} />
           </motion.div>
@@ -71,7 +71,7 @@ const App: React.FC = () => {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}
-            className="w-full h-full flex flex-col items-center justify-center relative"
+            className="w-full min-h-full flex flex-col items-center justify-center relative"
           >
             <Setup 
               onStart={handleStartGame} 
@@ -88,7 +88,7 @@ const App: React.FC = () => {
             key="game"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="w-full h-full"
+            className="w-full min-h-full flex flex-col"
           >
             {activeGame === 'dianoia' ? (
               <DianoiaGame players={players} onExit={handleExitGame} />
