@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { motion } from 'framer-motion';
 
@@ -39,7 +40,7 @@ const Landing: React.FC<LandingProps> = ({ onEnter }) => {
             transition={{ delay: 0.5, duration: 1 }}
             className="text-[10px] md:text-xs text-[#5C4D42] uppercase tracking-[0.3em]"
           >
-            Conectar. Deducir. Repetir.
+            UN JUEGO, INFINITAS FORMAS DE VIVIRLO
           </motion.p>
         </div>
       </motion.div>

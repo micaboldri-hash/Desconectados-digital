@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Player, ImpostorPhase, ImpostorConfig, ImpostorWord } from '../types';
@@ -9,6 +10,14 @@ interface ImpostorGameProps {
   onExit: () => void;
 }
 
+// Configuration for Adaptive Probability
+const WEIGHT_CONFIG = {
+  INITIAL: 100,
+  PENALTY: 10,   // Drop to this after being impostor
+  RECOVERY: 20,  // Add this each round you are not impostor
+  MAX: 100       // Cap weight
+};
+
 const ImpostorGame: React.FC<ImpostorGameProps> = ({ players, onExit }) => {
   const [config, setConfig] = useState<ImpostorConfig | null>(null);
   const [gameWord, setGameWord] = useState<ImpostorWord | null>(null);
@@ -18,6 +27,9 @@ const ImpostorGame: React.FC<ImpostorGameProps> = ({ players, onExit }) => {
   const [selectedPlayerId, setSelectedPlayerId] = useState<string | null>(null);
   const [showingSecret, setShowingSecret] = useState(false);
   const [starterPlayer, setStarterPlayer] = useState('');
+  
+  // State for tracking probability weights across rounds
+  const [playerWeights, setPlayerWeights] = useState<Record<string, number>>({});
   
   // Random phrases assigned for this round to ensure they don't change on re-render
   const [playerPhrases, setPlayerPhrases] = useState<Record<string, string>>({});
@@ -33,10 +45,68 @@ const ImpostorGame: React.FC<ImpostorGameProps> = ({ players, onExit }) => {
     const randomWordObj = IMPOSTOR_WORDS[Math.floor(Math.random() * IMPOSTOR_WORDS.length)];
     setGameWord(randomWordObj);
 
-    // Select Impostors
-    const shuffledPlayers = [...players].sort(() => 0.5 - Math.random());
-    const selectedImpostors = shuffledPlayers.slice(0, gameConfig.impostorCount).map(p => p.id);
+    // --- WEIGHTED SELECTION LOGIC ---
+    
+    // 1. Ensure all players have a weight (initially 100)
+    const currentWeights = { ...playerWeights };
+    players.forEach(p => {
+      if (currentWeights[p.id] === undefined) {
+        currentWeights[p.id] = WEIGHT_CONFIG.INITIAL;
+      }
+    });
+
+    // 2. Select Impostors based on weights
+    const selectedImpostors: string[] = [];
+    const availablePlayers = [...players]; // Pool to pick from
+
+    for (let i = 0; i < gameConfig.impostorCount; i++) {
+      // Calculate total weight of available pool
+      const totalWeight = availablePlayers.reduce((sum, p) => sum + (currentWeights[p.id] || WEIGHT_CONFIG.INITIAL), 0);
+      
+      let randomValue = Math.random() * totalWeight;
+      let selectedIndex = -1;
+
+      for (let j = 0; j < availablePlayers.length; j++) {
+        const pWeight = currentWeights[availablePlayers[j].id] || WEIGHT_CONFIG.INITIAL;
+        randomValue -= pWeight;
+        if (randomValue <= 0) {
+          selectedIndex = j;
+          break;
+        }
+      }
+
+      // Fallback/Safety
+      if (selectedIndex === -1 && availablePlayers.length > 0) {
+        selectedIndex = availablePlayers.length - 1;
+      }
+
+      if (selectedIndex !== -1) {
+        const chosen = availablePlayers[selectedIndex];
+        selectedImpostors.push(chosen.id);
+        // Remove from available pool so we don't pick the same person twice in one round
+        availablePlayers.splice(selectedIndex, 1);
+      }
+    }
+
     setImpostorIds(selectedImpostors);
+
+    // 3. Update Weights for the NEXT round (Adaptive Logic)
+    const nextWeights: Record<string, number> = {};
+    players.forEach(p => {
+      const isImpostor = selectedImpostors.includes(p.id);
+      const currentW = currentWeights[p.id] || WEIGHT_CONFIG.INITIAL;
+
+      if (isImpostor) {
+        // Penalty: Drop drastically
+        nextWeights[p.id] = WEIGHT_CONFIG.PENALTY;
+      } else {
+        // Recovery: Increase gradually
+        nextWeights[p.id] = Math.min(WEIGHT_CONFIG.MAX, currentW + WEIGHT_CONFIG.RECOVERY);
+      }
+    });
+    setPlayerWeights(nextWeights);
+
+    // --- END WEIGHTED LOGIC ---
 
     // Assign phrases
     const phrasesMap: Record<string, string> = {};
