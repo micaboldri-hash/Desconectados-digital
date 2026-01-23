@@ -60,4 +60,5 @@ export interface TabuConfig {
   teams: Team[];
   turnDuration: number; // segundos
   difficulty: TabuDifficulty;
+  turnOrder: Player[]; // Lista ordenada de jugadores para la rotación (1, 2, 3, 4...)
 }

@@ -1,7 +1,7 @@
 
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Player, TabuConfig, Team, TabuWord } from '../types';
+import { Player, TabuConfig, TabuWord } from '../types';
 import { TABU_DATA } from '../data/tabuData';
 import TabuSetup from './TabuSetup';
 import TabuCard from './TabuCard';
@@ -17,7 +17,7 @@ const TabuGame: React.FC<TabuGameProps> = ({ players, onExit }) => {
   const [isPaused, setIsPaused] = useState(false);
   
   // Game State
-  const [currentTeamIndex, setCurrentTeamIndex] = useState(0);
+  const [currentTurnIndex, setCurrentTurnIndex] = useState(0); // Index in config.turnOrder
   const [currentRoundScore, setCurrentRoundScore] = useState(0);
   const [timeLeft, setTimeLeft] = useState(0);
   
@@ -35,6 +35,7 @@ const TabuGame: React.FC<TabuGameProps> = ({ players, onExit }) => {
   const startGame = (gameConfig: TabuConfig) => {
     setConfig(gameConfig);
     initializeDeck();
+    setCurrentTurnIndex(0);
     setPhase('ready');
   };
 
@@ -49,33 +50,44 @@ const TabuGame: React.FC<TabuGameProps> = ({ players, onExit }) => {
   const endTurn = useCallback(() => {
     setPhase('summary');
     if (config) {
-      const newTeams = [...config.teams];
-      newTeams[currentTeamIndex].score += currentRoundScore;
+      // Find narrator and their team
+      const narrator = config.turnOrder[currentTurnIndex];
+      const newTeams = config.teams.map(team => {
+        if (team.players.some(p => p.id === narrator.id)) {
+          return { ...team, score: team.score + currentRoundScore };
+        }
+        return team;
+      });
       setConfig({ ...config, teams: newTeams });
     }
-  }, [config, currentTeamIndex, currentRoundScore]);
+  }, [config, currentTurnIndex, currentRoundScore]);
 
-  // Timer
+  // Timer: Decoupled from game state updates to prevent stuttering
   useEffect(() => {
     let interval: ReturnType<typeof setInterval>;
-    if (phase === 'playing' && timeLeft > 0 && !isPaused) {
+    if (phase === 'playing' && !isPaused) {
       interval = setInterval(() => {
-        setTimeLeft((prev) => prev - 1);
+        setTimeLeft((prev) => Math.max(0, prev - 1));
       }, 1000);
-    } else if (phase === 'playing' && timeLeft === 0 && !isPaused) {
-      endTurn();
     }
     return () => clearInterval(interval);
-  }, [phase, timeLeft, endTurn, isPaused]);
+  }, [phase, isPaused]);
+
+  // Check for end of turn when time hits 0
+  useEffect(() => {
+    if (phase === 'playing' && timeLeft === 0) {
+      endTurn();
+    }
+  }, [phase, timeLeft, endTurn]);
 
   const handleSwipe = (result: 'correct' | 'tabu' | 'skip') => {
     if (isPaused) return;
 
-    // Sound effect could go here
+    // Scoring logic
     let points = 0;
-    if (result === 'correct') points = 5;
-    if (result === 'tabu') points = -3;
-    if (result === 'skip') points = -2;
+    if (result === 'correct') points = 1;
+    if (result === 'tabu') points = -1;
+    if (result === 'skip') points = 0;
 
     setCurrentRoundScore(prev => prev + points);
     
@@ -83,16 +95,30 @@ const TabuGame: React.FC<TabuGameProps> = ({ players, onExit }) => {
     if (currentCardIndex + 1 < gameDeck.length) {
       setCurrentCardIndex(prev => prev + 1);
     } else {
-      // Reshuffle if deck ends (unlikely with 700 words but possible)
       initializeDeck(); 
     }
   };
 
-  const nextTeam = () => {
+  const nextTurn = () => {
     if (!config) return;
-    const nextIndex = (currentTeamIndex + 1) % config.teams.length;
-    setCurrentTeamIndex(nextIndex);
+    // Circular rotation through the turnOrder
+    const nextIndex = (currentTurnIndex + 1) % config.turnOrder.length;
+    setCurrentTurnIndex(nextIndex);
     setPhase('ready');
+  };
+
+  // Helper to get current roles
+  const getCurrentRoles = () => {
+    if (!config) return { narrator: null, watcher: null, team: null };
+    
+    const narrator = config.turnOrder[currentTurnIndex];
+    // Watcher is the next person in the circle
+    const watcherIndex = (currentTurnIndex + 1) % config.turnOrder.length;
+    const watcher = config.turnOrder[watcherIndex];
+    
+    const team = config.teams.find(t => t.players.some(p => p.id === narrator.id));
+    
+    return { narrator, watcher, team };
   };
 
   if (phase === 'setup') {
@@ -103,7 +129,7 @@ const TabuGame: React.FC<TabuGameProps> = ({ players, onExit }) => {
     );
   }
 
-  const currentTeam = config?.teams[currentTeamIndex];
+  const { narrator, watcher, team: currentTeam } = getCurrentRoles();
 
   if (phase === 'ready') {
     return (
@@ -111,22 +137,26 @@ const TabuGame: React.FC<TabuGameProps> = ({ players, onExit }) => {
         <motion.div 
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="bg-[#F5F1E3] p-10 rounded-[2.5rem] border-4 border-white/40 shadow-xl max-w-sm w-full"
+          className="bg-[#F5F1E3] p-8 md:p-12 rounded-[2.5rem] border-4 border-white/40 shadow-xl max-w-sm w-full relative overflow-hidden"
         >
-          <p className="text-xs uppercase tracking-widest text-[#5C4D42]/50 mb-4">Turno de</p>
-          <h2 className="text-4xl font-serif font-bold text-[#5C4D42] mb-6">{currentTeam?.name}</h2>
+          <div className="absolute top-0 left-0 w-full h-2 bg-[#5C4D42]/10" />
           
-          <div className="bg-white/60 p-4 rounded-xl mb-6">
-            <p className="text-sm font-bold text-[#5C4D42] mb-2">Integrantes:</p>
-            <div className="flex flex-wrap justify-center gap-2">
-              {currentTeam?.players.map(p => (
-                <span key={p.id} className="bg-[#5C4D42]/10 px-3 py-1 rounded-full text-xs text-[#5C4D42]">{p.name}</span>
-              ))}
-            </div>
+          <div className="mb-8">
+            <p className="text-xs uppercase tracking-widest text-[#5C4D42]/50 mb-2">Empieza</p>
+            <h2 className="text-3xl font-serif font-bold text-[#5C4D42]">{currentTeam?.name}</h2>
           </div>
+          
+          <div className="flex flex-col gap-6">
+            <div className="bg-white/60 p-4 rounded-2xl border border-[#D4CDB4]">
+              <p className="text-[10px] uppercase tracking-widest text-[#5C4D42]/50 mb-1">Narra</p>
+              <p className="text-xl font-bold text-[#8B735B]">{narrator?.name}</p>
+            </div>
 
-          <div className="text-[#5C4D42]/60 text-xs leading-relaxed italic">
-            "Pasale el teléfono a un narrador. El equipo contrario debe vigilar las palabras prohibidas."
+            <div className="bg-[#5C4D42]/5 p-4 rounded-2xl border border-[#5C4D42]/10">
+              <p className="text-[10px] uppercase tracking-widest text-[#5C4D42]/50 mb-1">Vigila</p>
+              <p className="text-xl font-bold text-[#5C4D42]">{watcher?.name}</p>
+              <p className="text-[9px] text-[#5C4D42]/40 mt-1 italic">(Si el narrador dice una prohibida, apretá abajo)</p>
+            </div>
           </div>
         </motion.div>
 
@@ -135,7 +165,7 @@ const TabuGame: React.FC<TabuGameProps> = ({ players, onExit }) => {
             onClick={startTurn}
             className="bg-[#5C4D42] text-[#F5F1E3] px-12 py-5 rounded-full font-bold shadow-xl active:scale-95 text-[12px] uppercase tracking-[0.2em] hover:bg-[#4A3E35] transition-all"
             >
-            Empezar
+            ¡Empezar Turno!
             </button>
             <button
                 onClick={onExit}
@@ -149,6 +179,8 @@ const TabuGame: React.FC<TabuGameProps> = ({ players, onExit }) => {
   }
 
   if (phase === 'playing') {
+    const currentCard = gameDeck[currentCardIndex];
+
     return (
       <div className="w-full h-full flex flex-col items-center relative overflow-hidden">
         {/* Top Bar */}
@@ -165,7 +197,7 @@ const TabuGame: React.FC<TabuGameProps> = ({ players, onExit }) => {
             disabled={isPaused}
             className="bg-[#5C4D42] text-[#F5F1E3] px-5 py-3 rounded-2xl font-bold uppercase tracking-widest text-[10px] shadow-lg hover:bg-[#4A3E35] active:scale-95 transition-all flex-1 mx-1 disabled:opacity-50"
           >
-            Saltear
+            Pasar
           </button>
 
           <div className="flex items-center gap-2">
@@ -187,16 +219,18 @@ const TabuGame: React.FC<TabuGameProps> = ({ players, onExit }) => {
           </div>
         </div>
 
-        {/* Card Area - Height increased here */}
+        {/* Card Area */}
         <div className="flex-1 w-full flex items-center justify-center p-6 relative">
            <div className="w-[320px] h-[560px] md:w-[380px] md:h-[640px] relative">
               <AnimatePresence mode="popLayout">
-                 <TabuCard 
-                    key={gameDeck[currentCardIndex].word}
-                    word={gameDeck[currentCardIndex]} 
-                    difficulty={config?.difficulty || 'medio'}
-                    onSwipe={handleSwipe}
-                 />
+                 {currentCard && (
+                     <TabuCard 
+                        key={currentCard.word}
+                        word={currentCard} 
+                        difficulty={config?.difficulty || 'medio'}
+                        onSwipe={handleSwipe}
+                     />
+                 )}
               </AnimatePresence>
            </div>
         </div>
@@ -268,10 +302,10 @@ const TabuGame: React.FC<TabuGameProps> = ({ players, onExit }) => {
 
         <div className="flex flex-col gap-3 w-full max-w-xs">
           <button
-            onClick={nextTeam}
+            onClick={nextTurn}
             className="bg-[#5C4D42] text-[#F5F1E3] py-4 rounded-xl font-bold uppercase tracking-widest text-xs shadow-lg hover:bg-[#4A3E35] transition-all"
           >
-            Siguiente Equipo
+            Siguiente Turno
           </button>
           <button
             onClick={onExit}

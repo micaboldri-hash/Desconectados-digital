@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Player, TabuConfig, Team, TabuDifficulty } from '../types';
 
 interface TabuSetupProps {
@@ -12,22 +12,43 @@ const TabuSetup: React.FC<TabuSetupProps> = ({ players, onStartGame, onBack }) =
   const [teamCount, setTeamCount] = useState<number>(2);
   const [turnDuration, setTurnDuration] = useState<number>(60);
   const [difficulty, setDifficulty] = useState<TabuDifficulty>('medio');
+  const [teamNames, setTeamNames] = useState<string[]>(['Equipo 1', 'Equipo 2']);
 
-  const maxTeams = Math.max(2, Math.floor(players.length / 1)); // At least 1 player per team? Ideally 2.
+  // Update names if team count changes
+  useEffect(() => {
+    setTeamNames(prev => {
+      const newNames = [...prev];
+      if (teamCount > prev.length) {
+        for (let i = prev.length; i < teamCount; i++) {
+          newNames.push(`Equipo ${i + 1}`);
+        }
+      } else {
+        return newNames.slice(0, teamCount);
+      }
+      return newNames;
+    });
+  }, [teamCount]);
+
+  const handleNameChange = (index: number, value: string) => {
+    const newNames = [...teamNames];
+    newNames[index] = value;
+    setTeamNames(newNames);
+  };
 
   const handleStart = () => {
-    // Shuffle players
+    // 1. Shuffle players to create the Turn Order (Round Robin)
     const shuffledPlayers = [...players].sort(() => 0.5 - Math.random());
     
-    // Create Teams
+    // 2. Create Teams Objects
     const newTeams: Team[] = Array.from({ length: teamCount }, (_, i) => ({
       id: i + 1,
-      name: `Equipo ${i + 1}`,
+      name: teamNames[i].trim() || `Equipo ${i + 1}`,
       players: [],
       score: 0
     }));
 
-    // Distribute players
+    // 3. Distribute players into teams (interleaved)
+    // This ensures that in the Turn Order (P1, P2, P3, P4), P1 is Team A, P2 is Team B, etc.
     shuffledPlayers.forEach((player, index) => {
       const teamIndex = index % teamCount;
       newTeams[teamIndex].players.push(player);
@@ -36,38 +57,52 @@ const TabuSetup: React.FC<TabuSetupProps> = ({ players, onStartGame, onBack }) =
     onStartGame({
       teams: newTeams,
       turnDuration,
-      difficulty
+      difficulty,
+      turnOrder: shuffledPlayers
     });
   };
 
   return (
-    <div className="bg-[#F5F1E3] w-[300px] md:w-[380px] rounded-[2.5rem] p-8 shadow-2xl border-4 border-white/40 flex flex-col items-center gap-6 relative">
-      <div className="text-center pt-4">
+    <div className="bg-[#F5F1E3] w-[300px] md:w-[380px] h-[600px] rounded-[2.5rem] p-8 shadow-2xl border-4 border-white/40 flex flex-col items-center gap-6 relative overflow-hidden">
+      <div className="text-center pt-2 shrink-0">
         <h2 className="text-2xl font-serif font-bold text-[#5C4D42]">CONFIGURAR TABÚ</h2>
         <p className="text-[10px] uppercase tracking-widest text-[#5C4D42]/50 mt-2">
           {players.length} INTEGRANTES
         </p>
       </div>
 
-      <div className="w-full space-y-4">
-        {/* Teams */}
-        <div className="bg-white/50 p-4 rounded-2xl border border-[#D4CDB4]/50">
-          <label className="block text-xs uppercase tracking-widest text-[#5C4D42]/60 mb-3 text-center">
-            Cantidad de Equipos
+      <div className="w-full flex-1 overflow-y-auto custom-scrollbar space-y-4 pr-1">
+        {/* Nombres de Equipos */}
+        <div className="space-y-2">
+          <label className="block text-xs uppercase tracking-widest text-[#5C4D42]/60 text-center mb-1">
+            Nombres de Equipos
           </label>
-          <div className="flex items-center justify-between px-4">
+          {teamNames.map((name, index) => (
+            <input
+              key={index}
+              type="text"
+              value={name}
+              onChange={(e) => handleNameChange(index, e.target.value)}
+              placeholder={`Nombre Equipo ${index + 1}`}
+              className="w-full bg-white/60 border border-[#D4CDB4] rounded-xl px-4 py-3 text-[#5C4D42] text-sm focus:bg-white outline-none text-center font-bold"
+            />
+          ))}
+          
+          <div className="flex items-center justify-center gap-4 mt-2">
             <button 
               onClick={() => setTeamCount(Math.max(2, teamCount - 1))}
               disabled={teamCount <= 2}
-              className="w-10 h-10 rounded-full bg-[#5C4D42]/10 text-[#5C4D42] font-bold disabled:opacity-30 hover:bg-[#5C4D42]/20 transition-colors"
+              className="w-8 h-8 rounded-full bg-[#5C4D42]/10 text-[#5C4D42] font-bold disabled:opacity-30 hover:bg-[#5C4D42]/20"
             >
               -
             </button>
-            <span className="text-3xl font-serif font-bold text-[#5C4D42]">{teamCount}</span>
+            <span className="text-xs uppercase tracking-widest text-[#5C4D42]/60">
+              {teamCount} Equipos
+            </span>
             <button 
               onClick={() => setTeamCount(Math.min(4, teamCount + 1))}
               disabled={teamCount >= 4}
-              className="w-10 h-10 rounded-full bg-[#5C4D42]/10 text-[#5C4D42] font-bold disabled:opacity-30 hover:bg-[#5C4D42]/20 transition-colors"
+              className="w-8 h-8 rounded-full bg-[#5C4D42]/10 text-[#5C4D42] font-bold disabled:opacity-30 hover:bg-[#5C4D42]/20"
             >
               +
             </button>
@@ -111,7 +146,7 @@ const TabuSetup: React.FC<TabuSetupProps> = ({ players, onStartGame, onBack }) =
         </div>
       </div>
 
-      <div className="w-full space-y-3 pt-2">
+      <div className="w-full space-y-3 pt-2 shrink-0">
         <button
           onClick={handleStart}
           className="w-full bg-[#5C4D42] text-[#F5F1E3] py-5 rounded-[1.5rem] font-bold shadow-xl active:scale-95 text-[12px] uppercase tracking-widest transition-colors hover:bg-[#4A3E35]"
