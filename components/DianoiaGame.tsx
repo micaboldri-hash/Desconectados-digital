@@ -1,28 +1,35 @@
-import React, { useState, useCallback, useMemo } from 'react';
+
+import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import Card from './Card';
-import { Player, Question, TurnInfo, TurnType } from '../types';
-import { QUESTIONS } from '../questions';
+import { Player, Question, TurnInfo, TurnType, DianoiaMode } from '../types';
+import { QUESTIONS, SPICY_QUESTIONS } from '../questions';
 
 interface DianoiaGameProps {
   players: Player[];
+  deckMode: DianoiaMode;
   onExit: () => void;
 }
 
-const DianoiaGame: React.FC<DianoiaGameProps> = ({ players, onExit }) => {
-  const [deck] = useState<Question[]>(() => {
-    const newArr = [...QUESTIONS];
+const DianoiaGame: React.FC<DianoiaGameProps> = ({ players, deckMode, onExit }) => {
+  const [deck, setDeck] = useState<Question[]>([]);
+
+  // Initialize and shuffle deck based on mode
+  useEffect(() => {
+    const sourceQuestions = deckMode === 'spicy' ? SPICY_QUESTIONS : QUESTIONS;
+    const newArr = [...sourceQuestions];
     for (let i = newArr.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [newArr[i], newArr[j]] = [newArr[j], newArr[i]];
     }
-    return newArr;
-  });
+    setDeck(newArr);
+    setActiveDeck(newArr);
+  }, [deckMode]);
 
   const [favorites, setFavorites] = useState<number[]>([]);
   const [status, setStatus] = useState<'playing' | 'favorites' | 'finished'>('playing');
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [activeDeck, setActiveDeck] = useState<Question[]>(deck);
+  const [activeDeck, setActiveDeck] = useState<Question[]>([]);
   const [turnInfo, setTurnInfo] = useState<TurnInfo | null>(null);
 
   // Turn generation logic reused
@@ -48,10 +55,10 @@ const DianoiaGame: React.FC<DianoiaGameProps> = ({ players, onExit }) => {
 
   // Initial turn
   React.useEffect(() => {
-    if (status === 'playing' && currentQuestionIndex === 0 && !turnInfo) {
+    if (status === 'playing' && currentQuestionIndex === 0 && !turnInfo && activeDeck.length > 0) {
       setTurnInfo(generateTurn(players));
     }
-  }, [status, players, generateTurn, currentQuestionIndex, turnInfo]);
+  }, [status, players, generateTurn, currentQuestionIndex, turnInfo, activeDeck]);
 
   const handleNext = () => {
     if (currentQuestionIndex + 1 >= activeDeck.length) {
@@ -90,7 +97,9 @@ const DianoiaGame: React.FC<DianoiaGameProps> = ({ players, onExit }) => {
   };
 
   const handleShowFavorites = () => {
-    const favQuestions = QUESTIONS.filter(q => favorites.includes(q.id));
+    // Only search in normal deck for favorites to keep it simple, or search both if needed.
+    // Assuming favorites only persist for current session/mode context.
+    const favQuestions = activeDeck.filter(q => favorites.includes(q.id));
     if (favQuestions.length === 0) return;
     setActiveDeck(favQuestions);
     setStatus('favorites');
@@ -103,6 +112,8 @@ const DianoiaGame: React.FC<DianoiaGameProps> = ({ players, onExit }) => {
     return turnInfo || { type: 'ALL' as TurnType, players: [] };
   }, [status, turnInfo]);
 
+  if (activeDeck.length === 0) return null; // Loading
+
   if (status === 'finished') {
     return (
       <motion.div 
@@ -114,7 +125,7 @@ const DianoiaGame: React.FC<DianoiaGameProps> = ({ players, onExit }) => {
           <h2 className="text-3xl font-serif font-bold text-[#5C4D42] mb-6 italic leading-snug">Fin del mazo</h2>
           <div className="w-10 h-1 bg-[#5C4D42]/10 mx-auto mb-8 rounded-full"></div>
           <p className="text-sm text-[#5C4D42]/60 leading-relaxed font-medium">
-            Gracias por permitirte<br/><span className="italic">conectar</span> con el resto.
+            Gracias por permitirte<br/><span className="italic">compartir</span> sin filtros.
           </p>
           <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-[#8B735B]/5 rounded-full blur-2xl"></div>
         </div>
@@ -140,6 +151,8 @@ const DianoiaGame: React.FC<DianoiaGameProps> = ({ players, onExit }) => {
 
   return (
     <div className="flex flex-col items-center w-full h-full relative overflow-visible">
+      {/* Title removed as requested */}
+
       <div className="flex-1 w-full flex items-center justify-center py-4">
         <div className="relative w-[300px] h-[450px] md:w-[380px] md:h-[550px]">
           {/* Background Card */}

@@ -1,5 +1,6 @@
+
 import React, { useState } from 'react';
-import { Player } from '../types';
+import { Player, DianoiaMode } from '../types';
 
 interface SetupProps {
   onStart: (players: Player[]) => void;
@@ -7,16 +8,18 @@ interface SetupProps {
   onBack: () => void;
   favoritesCount: number;
   initialPlayers?: Player[];
+  activeGameMode?: string;
+  dianoiaMode?: DianoiaMode;
 }
 
-const Setup: React.FC<SetupProps> = ({ onStart, onShowFavorites, onBack, favoritesCount, initialPlayers }) => {
+const Setup: React.FC<SetupProps> = ({ onStart, onShowFavorites, onBack, favoritesCount, initialPlayers, activeGameMode, dianoiaMode }) => {
   const [names, setNames] = useState<string[]>(() => {
     if (initialPlayers && initialPlayers.length > 0) {
       return initialPlayers.map(p => p.name);
     }
     return ['', ''];
   });
-
+  
   const handleAddPlayer = () => {
     setNames([...names, '']);
   };
@@ -46,8 +49,15 @@ const Setup: React.FC<SetupProps> = ({ onStart, onShowFavorites, onBack, favorit
     }
   };
 
+  const getTitle = () => {
+    if (activeGameMode === 'dianoia') {
+      return dianoiaMode === 'spicy' ? 'DICIENDO DE MÁS' : 'DICIENDO TODO';
+    }
+    return 'INTEGRANTES';
+  };
+
   return (
-    <div className="bg-[#F5F1E3] w-[300px] h-[520px] md:w-[400px] md:h-[600px] rounded-[2.5rem] p-8 md:p-12 shadow-2xl border-4 border-white/40 flex flex-col animate-fade-in relative overflow-hidden">
+    <div className="bg-[#F5F1E3] w-[300px] h-[580px] md:w-[400px] md:h-[680px] rounded-[2.5rem] p-8 md:p-12 shadow-2xl border-4 border-white/40 flex flex-col animate-fade-in relative overflow-hidden">
       
       {/* Botón Volver (Flecha) */}
       <button 
@@ -60,13 +70,16 @@ const Setup: React.FC<SetupProps> = ({ onStart, onShowFavorites, onBack, favorit
         </svg>
       </button>
 
-      <div className="flex-1 flex flex-col overflow-hidden mt-4">
+      <div className="flex-1 flex flex-col overflow-hidden mt-12">
         <div className="text-center shrink-0 mb-6">
-          <h2 className="text-2xl font-serif font-bold text-[#5C4D42]">Integrantes</h2>
-          <p className="text-[10px] text-[#5C4D42]/40 uppercase tracking-widest mt-1">¿Quiénes están presentes?</p>
+          <h2 className="text-2xl font-serif font-bold text-[#5C4D42]">
+            {getTitle()}
+          </h2>
+          <p className="text-[10px] text-[#5C4D42]/40 uppercase tracking-widest mt-1">Configuración de partida</p>
         </div>
 
         <form onSubmit={handleSubmit} className="flex-1 flex flex-col overflow-hidden">
+          
           <div className="flex-1 overflow-y-auto pr-2 custom-scrollbar space-y-3 mb-6">
             {names.map((name, index) => (
               <div key={index} className="flex gap-2 group animate-fade-in-up" style={{ animationDelay: `${index * 50}ms` }}>
@@ -99,7 +112,7 @@ const Setup: React.FC<SetupProps> = ({ onStart, onShowFavorites, onBack, favorit
           </div>
 
           <div className="shrink-0 space-y-3">
-            {favoritesCount > 0 && (
+            {activeGameMode === 'dianoia' && favoritesCount > 0 && (
               <button
                 type="button"
                 onClick={onShowFavorites}

@@ -42,13 +42,10 @@ const TabuSetup: React.FC<TabuSetupProps> = ({ players, onStartGame, onBack }) =
 
   return (
     <div className="bg-[#F5F1E3] w-[300px] md:w-[380px] rounded-[2.5rem] p-8 shadow-2xl border-4 border-white/40 flex flex-col items-center gap-6 relative">
-      <div className="text-center">
-        <div className="w-16 h-16 bg-[#5C4D42]/10 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl">
-          🚫
-        </div>
-        <h2 className="text-2xl font-serif font-bold text-[#5C4D42]">Configurar Tabú</h2>
+      <div className="text-center pt-4">
+        <h2 className="text-2xl font-serif font-bold text-[#5C4D42]">CONFIGURAR TABÚ</h2>
         <p className="text-[10px] uppercase tracking-widest text-[#5C4D42]/50 mt-2">
-          {players.length} Jugadores
+          {players.length} INTEGRANTES
         </p>
       </div>
 

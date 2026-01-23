@@ -4,15 +4,17 @@ import { AnimatePresence, motion } from 'framer-motion';
 import Layout from './components/Layout';
 import Setup from './components/Setup';
 import GameMenu from './components/GameMenu';
+import DeckSelector from './components/DeckSelector';
 import DianoiaGame from './components/DianoiaGame';
 import ImpostorGame from './components/ImpostorGame';
 import TabuGame from './components/TabuGame';
 import Landing from './components/Landing';
-import { Player, GameMode } from './types';
+import { Player, GameMode, DianoiaMode } from './types';
 
 const App: React.FC = () => {
-  const [screen, setScreen] = useState<'landing' | 'menu' | 'setup' | 'game'>('landing');
+  const [screen, setScreen] = useState<'landing' | 'menu' | 'deck_selection' | 'setup' | 'game'>('landing');
   const [activeGame, setActiveGame] = useState<GameMode>('dianoia');
+  const [activeDianoiaMode, setActiveDianoiaMode] = useState<DianoiaMode>('normal');
   const [players, setPlayers] = useState<Player[]>([]);
 
   const handleEnterApp = () => {
@@ -21,9 +23,19 @@ const App: React.FC = () => {
 
   const handleGameSelect = (mode: GameMode) => {
     setActiveGame(mode);
+    if (mode === 'dianoia') {
+      setScreen('deck_selection');
+    } else {
+      setScreen('setup');
+    }
+  };
+
+  const handleDeckSelect = (mode: DianoiaMode) => {
+    setActiveDianoiaMode(mode);
     setScreen('setup');
   };
 
+  // Setup now only receives players, deck is already set
   const handleStartGame = (gamePlayers: Player[]) => {
     setPlayers(gamePlayers);
     setScreen('game');
@@ -34,8 +46,12 @@ const App: React.FC = () => {
   };
 
   const handleBackToMenu = () => {
-    setScreen('menu');
-    setPlayers([]);
+    if (activeGame === 'dianoia' && screen === 'setup') {
+      setScreen('deck_selection');
+    } else {
+      setScreen('menu');
+      setPlayers([]);
+    }
   };
 
   return (
@@ -70,6 +86,21 @@ const App: React.FC = () => {
           </motion.div>
         )}
 
+        {screen === 'deck_selection' && (
+          <motion.div 
+            key="deck_selection"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            className="w-full min-h-full flex items-center justify-center"
+          >
+            <DeckSelector 
+              onSelect={handleDeckSelect} 
+              onBack={() => setScreen('menu')}
+            />
+          </motion.div>
+        )}
+
         {screen === 'setup' && (
           <motion.div 
             key="setup"
@@ -84,6 +115,8 @@ const App: React.FC = () => {
               favoritesCount={0}
               onBack={handleBackToMenu}
               initialPlayers={players}
+              activeGameMode={activeGame}
+              dianoiaMode={activeDianoiaMode}
             />
           </motion.div>
         )}
@@ -96,7 +129,7 @@ const App: React.FC = () => {
             className="w-full min-h-full flex flex-col"
           >
             {activeGame === 'dianoia' ? (
-              <DianoiaGame players={players} onExit={handleExitGame} />
+              <DianoiaGame players={players} deckMode={activeDianoiaMode} onExit={handleExitGame} />
             ) : activeGame === 'impostor' ? (
               <ImpostorGame players={players} onExit={handleExitGame} />
             ) : (

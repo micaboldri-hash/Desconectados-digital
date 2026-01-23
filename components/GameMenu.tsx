@@ -21,7 +21,7 @@ const GameMenu: React.FC<GameMenuProps> = ({ onSelect }) => {
       </motion.div>
 
       <div className="flex flex-col md:flex-row gap-6 w-full max-w-4xl justify-center items-stretch flex-wrap pb-8">
-        {/* Conectados */}
+        {/* Sin Filtro (Ex Conectados) */}
         <motion.button
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
@@ -32,9 +32,9 @@ const GameMenu: React.FC<GameMenuProps> = ({ onSelect }) => {
             ✦
           </div>
           <div className="text-center space-y-2">
-            <h3 className="text-xl font-serif font-bold text-[#5C4D42] tracking-wide group-hover:tracking-wider transition-all">CONECTADOS</h3>
+            <h3 className="text-xl font-serif font-bold text-[#5C4D42] tracking-wide group-hover:tracking-wider transition-all">SIN FILTRO</h3>
             <p className="text-xs text-[#5C4D42]/60 leading-relaxed font-medium">
-              Conexión profunda.<br/>Preguntas para conocerse de verdad.
+              Conexión profunda o picante.<br/>Ustedes eligen el tono.
             </p>
           </div>
         </motion.button>

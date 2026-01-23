@@ -1,3 +1,4 @@
+
 import { Question } from './types';
 
 export const QUESTIONS: Question[] = [
@@ -1728,5 +1729,1008 @@ export const QUESTIONS: Question[] = [
       "¿Qué tuviste que aprender a los golpes?",
       "¿Sentís que hoy usás lo que aprendiste?"
     ]
+  }
+];
+
+export const SPICY_QUESTIONS: Question[] = [
+  {
+    id: 1001,
+    text: "¿Cuál es el lugar más extraño donde has tenido relaciones?",
+    followUps: ["¿Te dio miedo que te descubrieran?", "¿Lo volverías a repetir en ese mismo lugar?", "¿Fue planeado o espontáneo?"]
+  },
+  {
+    id: 1002,
+    text: "¿Qué es lo más \"prohibido\" que has hecho por puro deseo?",
+    followUps: ["¿Sentiste culpa después?", "¿Valió la pena el riesgo?", "¿Alguien más sabe de esto?"]
+  },
+  {
+    id: 1003,
+    text: "¿Cuál es tu fantasía sexual más recurrente cuando estás a solas?",
+    followUps: ["¿Te animarías a cumplirla en la realidad?", "¿Involucra a alguien que conoces?", "¿Te da vergüenza admitirla?"]
+  },
+  {
+    id: 1004,
+    text: "¿Qué es lo primero que te hace sentir atracción física por alguien?",
+    followUps: ["¿Es algo visual o de actitud?", "¿Suele ser siempre lo mismo?", "¿Te ha pasado con alguien que no esperabas?"]
+  },
+  {
+    id: 1005,
+    text: "¿Cuál es el mensaje más subido de tono que has enviado o recibido?",
+    followUps: ["¿Fue correspondido?", "¿Te arrepentiste de enviarlo?", "¿Guardás ese chat?"]
+  },
+  {
+    id: 1006,
+    text: "¿Qué prenda de ropa te hace sentir más sexy de forma inmediata?",
+    followUps: ["¿La usás seguido o en ocasiones especiales?", "¿Alguien te lo ha elogiado?", "¿Te cambia la actitud al usarla?"]
+  },
+  {
+    id: 1007,
+    text: "¿Has tenido alguna vez una aventura de una noche que nunca le contaste a nadie?",
+    followUps: ["¿Por qué decidiste mantenerlo en secreto?", "¿Fue con alguien conocido?", "¿Te gustaría repetirlo?"]
+  },
+  {
+    id: 1008,
+    text: "¿Qué es lo que más te enciende que te hagan en el cuello?",
+    followUps: ["¿Besos, mordiscos o susurros?", "¿Es tu zona más sensible?", "¿Te deja marcas?"]
+  },
+  {
+    id: 1009,
+    text: "¿Cuál es tu opinión personal sobre los tríos? ¿Te animarías o ya lo hiciste?",
+    followUps: ["¿Preferirías dos hombres o dos mujeres?", "¿Te preocupa los celos?", "¿Crees que cambiaría la relación?"]
+  },
+  {
+    id: 1010,
+    text: "¿Qué importancia le das a la química sexual comparada con la conexión emocional?",
+    followUps: ["¿Podrías estar con alguien solo por química?", "¿Has tenido una sin la otra?", "¿Cuál dura más tiempo?"]
+  },
+  {
+    id: 1011,
+    text: "¿Cuál ha sido tu experiencia sexual más memorable hasta ahora?",
+    followUps: ["¿Qué la hizo tan especial?", "¿Fue con una pareja estable?", "¿Superó tus expectativas?"]
+  },
+  {
+    id: 1012,
+    text: "¿Qué es lo más raro que has buscado en internet relacionado al sexo?",
+    followUps: ["¿Fue por curiosidad o para aprender?", "¿Borraste el historial inmediatamente?", "¿Encontraste lo que buscabas?"]
+  },
+  {
+    id: 1013,
+    text: "¿Alguna vez has tenido un encuentro en un lugar público con riesgo de que te vean?",
+    followUps: ["¿El riesgo aumentó el placer?", "¿Estuvieron cerca de ser descubiertos?", "¿Quién propuso la idea?"]
+  },
+  {
+    id: 1014,
+    text: "¿Preferís ser quien lleva el ritmo o que te guíen totalmente?",
+    followUps: ["¿Depende de la pareja?", "¿Te gusta cambiar de roles?", "¿Qué te hace disfrutar más?"]
+  },
+  {
+    id: 1015,
+    text: "¿Qué parte de tu cuerpo considerás que es tu mayor \"arma de seducción\"?",
+    followUps: ["¿La mostrás intencionalmente?", "¿Recibís halagos por ella?", "¿Te sentís seguro/a con esa parte?"]
+  },
+  {
+    id: 1016,
+    text: "¿Cuál es el fetiche más extraño que te genera curiosidad probar?",
+    followUps: ["¿Te animarías a proponerlo?", "¿Lo viste en algún lado?", "¿Te da miedo que te juzguen?"]
+  },
+  {
+    id: 1017,
+    text: "¿Has fingido alguna vez un orgasmo para no herir sentimientos o terminar rápido?",
+    followUps: ["¿Se dieron cuenta?", "¿Te sentiste mal después?", "¿Fue con una pareja estable?"]
+  },
+  {
+    id: 1018,
+    text: "¿Qué palabra o frase te gusta que te digan al oído durante el acto?",
+    followUps: ["¿Preferís algo romántico o sucio?", "¿Te excita el tono de voz?", "¿Lo pedís o esperás que salga?"]
+  },
+  {
+    id: 1019,
+    text: "¿Cuál es tu récord de tiempo (el más corto o el más largo) en un encuentro?",
+    followUps: ["¿Fue por pasión o por aguante?", "¿Terminaron agotados?", "¿Lo considerás un logro?"]
+  },
+  {
+    id: 1020,
+    text: "¿Qué objeto cotidiano (que no sea un juguete) has usado alguna vez para darte placer?",
+    followUps: ["¿Fue improvisado?", "¿Te sorprendió el resultado?", "¿Lo volverías a usar?"]
+  },
+  {
+    id: 1021,
+    text: "¿Qué es lo más atrevido que has hecho frente a una cámara?",
+    followUps: ["¿Fue foto o video?", "¿Lo conservás todavía?", "¿Te dio nervios?"]
+  },
+  {
+    id: 1022,
+    text: "¿Cuál es tu posición favorita y por qué es la que más te hace disfrutar?",
+    followUps: ["¿Es por la vista o la sensación?", "¿Siempre terminás así?", "¿Tu pareja la disfruta igual?"]
+  },
+  {
+    id: 1023,
+    text: "¿Has tenido alguna fantasía con alguien de este grupo?",
+    followUps: ["¿Te animás a decir quién?", "¿Fue solo un pensamiento fugaz?", "¿Cambió tu forma de ver a esa persona?"]
+  },
+  {
+    id: 1024,
+    text: "¿Qué es lo más \"sucio\" que has hecho en la cama y que te encantó?",
+    followUps: ["¿Te sorprendió que te gustara?", "¿Fue idea tuya?", "¿Se volvió algo habitual?"]
+  },
+  {
+    id: 1025,
+    text: "¿Sos de luces encendidas para ver todo o a oscuras para potenciar el tacto?",
+    followUps: ["¿Te da inseguridad la luz?", "¿Qué te gusta ver específicamente?", "¿Cambia según el momento?"]
+  },
+  {
+    id: 1026,
+    text: "¿Cuál es el lugar de tu casa donde más te gusta hacerlo fuera de la cama?",
+    followUps: ["¿Es cómodo o solo excitante?", "¿Tenés cuidado con los vecinos?", "¿Lo hacés seguido?"]
+  },
+  {
+    id: 1027,
+    text: "¿Qué es lo primero que hacés al quedarte solo/a y tener ganas de autosatisfacerte?",
+    followUps: ["¿Tenés un ritual?", "¿Usás algún material visual?", "¿Te tomás tu tiempo?"]
+  },
+  {
+    id: 1028,
+    text: "¿Qué importancia le das a la lencería o a la estética en el encuentro?",
+    followUps: ["¿Es para vos o para el otro?", "¿Te excita verlo en tu pareja?", "¿Es imprescindible?"]
+  },
+  {
+    id: 1029,
+    text: "¿Cuál es tu \"dirty talk\" favorito: qué palabras te encienden de verdad?",
+    followUps: ["¿Te gusta decir o escuchar?", "¿Hay alguna palabra prohibida?", "¿Te sale natural?"]
+  },
+  {
+    id: 1030,
+    text: "¿Prefieres un encuentro rápido y salvaje o una sesión de horas con mucho preámbulo?",
+    followUps: ["¿Depende del día?", "¿Qué te deja más satisfecho/a?", "¿Cuál tenés más seguido?"]
+  },
+  {
+    id: 1031,
+    text: "¿Qué sensación física te gusta más: besos, mordiscos o arañazos?",
+    followUps: ["¿Te gusta dejar marcas?", "¿Es dolor placentero?", "¿En qué zona del cuerpo?"]
+  },
+  {
+    id: 1032,
+    text: "¿Has tenido alguna vez una experiencia sexual con alguien de tu mismo sexo?",
+    followUps: ["¿Fue curiosidad o atracción?", "¿Lo repetirías?", "¿Qué descubriste de vos mismo/a?"]
+  },
+  {
+    id: 1033,
+    text: "¿Cuál es el límite o \"no\" rotundo que tenés en la intimidad?",
+    followUps: ["¿Alguna vez intentaron cruzarlo?", "¿Es algo físico o moral?", "¿Podría cambiar con confianza?"]
+  },
+  {
+    id: 1034,
+    text: "¿Qué olor o perfume te despierta el deseo de forma inmediata?",
+    followUps: ["¿Es una fragancia específica?", "¿Te recuerda a alguien?", "¿Lo usás como arma de seducción?"]
+  },
+  {
+    id: 1035,
+    text: "¿Cuál es la diferencia más grande entre tu personalidad diaria y cómo sos en la cama?",
+    followUps: ["¿Sos más dominante o sumiso/a?", "¿Te transformás?", "¿Te sorprende ese cambio?"]
+  },
+  {
+    id: 1036,
+    text: "¿Qué técnica o movimiento aprendiste con el tiempo que sentís que es tu \"arma secreta\"?",
+    followUps: ["¿Dónde lo aprendiste?", "¿Siempre funciona?", "¿Te lo han elogiado?"]
+  },
+  {
+    id: 1037,
+    text: "¿Cuál es el \"juguete\" que más te gusta usar o que más te llama la atención?",
+    followUps: ["¿Lo usás solo/a o en pareja?", "¿Te da vergüenza comprarlo?", "¿Mejora mucho la experiencia?"]
+  },
+  {
+    id: 1038,
+    text: "¿Qué harías si te dieran un vale por 24 horas para cumplir cualquier deseo sin juzgarte?",
+    followUps: ["¿Sería algo ilegal?", "¿Involucraría a mucha gente?", "¿Te animarías a todo?"]
+  },
+  {
+    id: 1039,
+    text: "¿Has tenido sexo en el agua (mar, pileta, ducha)? ¿Te gustó o te pareció incómodo?",
+    followUps: ["¿Fue romántico o complicado?", "¿El agua ayudó o molestó?", "¿Repetirías el lugar?"]
+  },
+  {
+    id: 1040,
+    text: "¿Cuál es la parte de tu cuerpo que más te gusta que te besen?",
+    followUps: ["¿Es una zona erógena común?", "¿Te hace estremecer?", "¿Lo pedís explícitamente?"]
+  },
+  {
+    id: 1041,
+    text: "¿Alguna vez te han descubierto teniendo relaciones?",
+    followUps: ["¿Quién fue?", "¿Cómo reaccionaste?", "¿Te cortó el momento o siguieron?"]
+  },
+  {
+    id: 1042,
+    text: "¿Qué es lo más loco que aceptarías hacer por dinero?",
+    followUps: ["¿Pondrías un precio alto?", "¿Sería algo sexual?", "¿Dónde está tu límite moral?"]
+  },
+  {
+    id: 1043,
+    text: "¿Cuál es la fantasía que cumpliste y resultó ser mejor de lo que imaginabas?",
+    followUps: ["¿Superó tus expectativas?", "¿Fue difícil de concretar?", "¿Se convirtió en rutina?"]
+  },
+  {
+    id: 1044,
+    text: "¿Qué tan importante es para vos el contacto visual durante el sexo?",
+    followUps: ["¿Te intimida o te excita?", "¿Lo mantenés todo el tiempo?", "¿Te dice algo sobre la conexión?"]
+  },
+  {
+    id: 1045,
+    text: "¿Cuál es el pensamiento más recurrente que tenés cuando te estás masturbando?",
+    followUps: ["¿Es sobre alguien real o imaginario?", "¿Cambia seguido?", "¿Te da culpa pensarlo?"]
+  },
+  {
+    id: 1046,
+    text: "¿Qué prenda de ropa de la otra persona te parece la más difícil de resistir?",
+    followUps: ["¿Te gusta quitársela?", "¿Es algo formal o casual?", "¿Por qué te atrae tanto?"]
+  },
+  {
+    id: 1047,
+    text: "¿Cuál es el lugar público más arriesgado donde has hecho \"jueguitos\" sin llegar al sexo?",
+    followUps: ["¿Había gente cerca?", "¿Te puso nervioso/a?", "¿Fue excitante el riesgo?"]
+  },
+  {
+    id: 1048,
+    text: "¿Preferís que te aten o atar vos?",
+    followUps: ["¿Te gusta el control o la entrega?", "¿Qué usarías para atar?", "¿Te da confianza hacerlo?"]
+  },
+  {
+    id: 1049,
+    text: "¿Cuál es tu opinión sobre el sexo anal? ¿Curiosidad, placer o rechazo?",
+    followUps: ["¿Lo has probado?", "¿Es un tabú para vos?", "¿Crees que requiere mucha preparación?"]
+  },
+  {
+    id: 1050,
+    text: "¿Qué es lo último que pensás antes de dormir cuando estás excitado/a?",
+    followUps: ["¿Te ayuda a dormir?", "¿Planeás el próximo encuentro?", "¿Es un recuerdo o una fantasía?"]
+  },
+  {
+    id: 1051,
+    text: "¿Cuál es la situación más ridícula que has vivido estando desnudo/a?",
+    followUps: ["¿Fue en público o privado?", "¿Te reíste en el momento?", "¿Alguien más te vio?"]
+  },
+  {
+    id: 1052,
+    text: "¿Qué es lo más vergonzoso que te ha pasado en una primera cita?",
+    followUps: ["¿Querías que la tierra te tragara?", "¿Hubo segunda cita?", "¿Ahora te parece gracioso?"]
+  },
+  {
+    id: 1053,
+    text: "Si tuvieras que describir tu vida sexual con el título de una película, ¿cuál sería?",
+    followUps: ["¿Es comedia, drama o acción?", "¿Por qué elegiste ese título?", "¿Te gustaría cambiar el género?"]
+  },
+  {
+    id: 1054,
+    text: "¿Cuál es el hábito más extraño que tenés cuando nadie te ve en tu casa?",
+    followUps: ["¿Te daría vergüenza que lo sepan?", "¿Desde cuándo lo hacés?", "¿Te relaja hacerlo?"]
+  },
+  {
+    id: 1055,
+    text: "¿Alguna vez te has olvidado el nombre de la persona con la que estabas intimando?",
+    followUps: ["¿Cómo lo disimulaste?", "¿Se dio cuenta?", "¿Fue incómodo?"]
+  },
+  {
+    id: 1056,
+    text: "¿Cuál es la mentira más creativa que has dicho para zafar de una cita o encuentro?",
+    followUps: ["¿Te creyeron?", "¿Te sentiste mal por mentir?", "¿Era alguien muy insistente?"]
+  },
+  {
+    id: 1057,
+    text: "¿Qué es lo primero que harías si te despertaras siendo del sexo opuesto por 24 horas?",
+    followUps: ["¿Experimentarías con tu cuerpo?", "¿Saldrías a la calle?", "¿Buscarías a alguien?"]
+  },
+  {
+    id: 1058,
+    text: "¿Cuál es tu \"permitido\" famoso por el que dejarías todo?",
+    followUps: ["¿Es un actor/actriz o músico?", "¿Tu pareja lo aceptaría?", "¿Fantaseás con eso?"]
+  },
+  {
+    id: 1059,
+    text: "¿Qué canción te cortaría el mambo si empezara a sonar en medio del sexo?",
+    followUps: ["¿Te ha pasado?", "¿Te reirías o te enojarías?", "¿Apagarías la música?"]
+  },
+  {
+    id: 1060,
+    text: "¿Cuál ha sido tu peor experiencia usando una app de citas?",
+    followUps: ["¿La persona era diferente a las fotos?", "¿Fue una charla incómoda?", "¿Te fuiste antes de tiempo?"]
+  },
+  {
+    id: 1061,
+    text: "¿Qué es lo más loco que has hecho por seguir un impulso del momento?",
+    followUps: ["¿Te arrepentiste después?", "¿Fue una buena anécdota?", "¿Te metiste en problemas?"]
+  },
+  {
+    id: 1062,
+    text: "¿Cuál es el apodo más ridículo que te han puesto en la intimidad?",
+    followUps: ["¿Te gustaba o lo odiabas?", "¿Duró mucho tiempo?", "¿Qué significaba?"]
+  },
+  {
+    id: 1063,
+    text: "Si pudieras borrar una experiencia de tu pasado para repetirla de nuevo, ¿cuál elegirías?",
+    followUps: ["¿Fue tu primera vez?", "¿Un viaje especial?", "¿Un momento romántico?"]
+  },
+  {
+    id: 1064,
+    text: "¿Cuál es el objeto más raro que tenés guardado en tu mesa de luz?",
+    followUps: ["¿Tiene alguna utilidad?", "¿Lo escondés cuando vienen visitas?", "¿Por qué lo guardás ahí?"]
+  },
+  {
+    id: 1065,
+    text: "¿Qué harías si por error le enviás una foto \"hot\" a un familiar?",
+    followUps: ["¿Dirías que fue un virus?", "¿Te mudarías de país?", "¿Cómo los mirarías a la cara?"]
+  },
+  {
+    id: 1066,
+    text: "¿Cuál es tu búsqueda de Google más comprometedora de la última semana?",
+    followUps: ["¿Te morirías si alguien la ve?", "¿Era una duda real?", "¿Usaste modo incógnito?"]
+  },
+  {
+    id: 1067,
+    text: "Si fueras un sabor de helado, ¿cuál serías según tu personalidad?",
+    followUps: ["¿Dulce, ácido o exótico?", "¿Le gustarías a todos?", "¿Te derretirías fácil?"]
+  },
+  {
+    id: 1068,
+    text: "¿Cuál es el \"guilty pleasure\" (gusto culposo) que te da vergüenza admitir?",
+    followUps: ["¿Es música, comida o TV?", "¿Lo disfrutás en secreto?", "¿Tus amigos te juzgarían?"]
+  },
+  {
+    id: 1069,
+    text: "¿Quién de este grupo crees que terminaría preso primero por una pavada?",
+    followUps: ["¿Por qué razón sería?", "¿Pagarías su fianza?", "¿Te sorprendería?"]
+  },
+  {
+    id: 1070,
+    text: "Si pudieras tener un superpoder para usar solo en la cama, ¿cuál sería?",
+    followUps: ["¿Flexibilidad, resistencia o lectura de mente?", "¿Lo usarías para el bien?", "¿Sería trampa?"]
+  },
+  {
+    id: 1071,
+    text: "¿Cuál es la ley más absurda que pondrías si fueras presidente?",
+    followUps: ["¿Beneficiaría a todos?", "¿Sería obligatoria?", "¿Te odiarían por eso?"]
+  },
+  {
+    id: 1072,
+    text: "Si mañana ganaras la lotería, ¿qué es lo primero \"poco ético\" que comprarías?",
+    followUps: ["¿Sería un capricho egoísta?", "¿Afectaría a alguien más?", "¿Lo contarías?"]
+  },
+  {
+    id: 1073,
+    text: "¿Cuál es tu anécdota de \"trágame tierra\" favorita?",
+    followUps: ["¿Te pasó frente a mucha gente?", "¿Ya la superaste?", "¿Te ríes al contarla?"]
+  },
+  {
+    id: 1074,
+    text: "Si tuvieras que elegir una canción para que suene cada vez que entras a una habitación, ¿cuál sería?",
+    followUps: ["¿Sería épica o graciosa?", "¿Te cansarías de ella?", "¿Qué diría de vos?"]
+  },
+  {
+    id: 1075,
+    text: "¿Qué animal serías según tu forma de seducir?",
+    followUps: ["¿Un pavo real, un gato o un león?", "¿Sos directo o sutil?", "¿Te funciona esa estrategia?"]
+  },
+  {
+    id: 1076,
+    text: "¿Cuál es el objeto más inútil que has comprado y todavía guardás?",
+    followUps: ["¿Por qué lo compraste?", "¿Te da pena tirarlo?", "¿Alguna vez lo usaste?"]
+  },
+  {
+    id: 1077,
+    text: "Si tuvieras que sobrevivir a un apocalipsis zombie, ¿qué tarea harías mejor?",
+    followUps: ["¿Líder, cocinero o carnada?", "¿Cuánto durarías?", "¿Traicionarías para sobrevivir?"]
+  },
+  {
+    id: 1078,
+    text: "¿Cuál es el mensaje de texto más vergonzoso que mandaste por error?",
+    followUps: ["¿A quién le llegó?", "¿Pudiste arreglarlo?", "¿Te bloquearon?"]
+  },
+  {
+    id: 1079,
+    text: "¿Qué harías si te encontrás a tu ex en una app de citas? ¿Le das like o swipe?",
+    followUps: ["¿Sería por curiosidad o rencor?", "¿Te gustaría ver si hay match?", "¿Qué pensarías si te da like?"]
+  },
+  {
+    id: 1080,
+    text: "¿Cuál es tu técnica para fingir que estás escuchando cuando en realidad estás en otra?",
+    followUps: ["¿Asentís o hacés preguntas genéricas?", "¿Te han descubierto?", "¿Te pasa seguido?"]
+  },
+  {
+    id: 1081,
+    text: "Si pudieras hablar con un animal, ¿cuál elegirías y qué le preguntarías?",
+    followUps: ["¿Sería tu mascota?", "¿Esperás una respuesta profunda?", "¿Crees que te entendería?"]
+  },
+  {
+    id: 1082,
+    text: "¿Cuál es el baile más ridículo que hacés cuando estás solo/a y feliz?",
+    followUps: ["¿Tenés una coreografía?", "¿Te filmarías haciéndolo?", "¿Te da energía?"]
+  },
+  {
+    id: 1083,
+    text: "¿Qué es lo más extraño que has comido por compromiso?",
+    followUps: ["¿Te dio asco?", "¿Pudiste disimular?", "¿Quién te lo ofreció?"]
+  },
+  {
+    id: 1084,
+    text: "Si tuvieras que vivir en una película por una semana, ¿cuál elegirías?",
+    followUps: ["¿Serías el protagonista?", "¿Es un mundo peligroso?", "¿Qué harías allí?"]
+  },
+  {
+    id: 1085,
+    text: "¿Cuál es el talento oculto más inútil que tenés?",
+    followUps: ["¿Se lo mostrás a la gente?", "¿Te llevó tiempo aprenderlo?", "¿Te sirve para algo?"]
+  },
+  {
+    id: 1086,
+    text: "¿Qué harías si te quedás encerrado/a en un ascensor con tu crush?",
+    followUps: ["¿Entrarías en pánico o aprovecharías?", "¿De qué hablarías?", "¿Sería el destino?"]
+  },
+  {
+    id: 1087,
+    text: "¿Cuál es el disfraz más ridículo que has usado?",
+    followUps: ["¿Fue para una fiesta?", "¿Te sentías cómodo/a?", "¿Hay fotos de eso?"]
+  },
+  {
+    id: 1088,
+    text: "Si pudieras viajar al pasado solo para espiar a alguien, ¿a quién elegirías?",
+    followUps: ["¿Sería alguien famoso o conocido?", "¿Qué querrías descubrir?", "¿Cambiaría tu opinión?"]
+  },
+  {
+    id: 1089,
+    text: "¿Cuál es tu mayor \"maña\" o TOC que nadie conoce?",
+    followUps: ["¿Te pone nervioso/a si no lo hacés?", "¿Afecta tu convivencia?", "¿Trataste de cambiarlo?"]
+  },
+  {
+    id: 1090,
+    text: "¿Qué es lo que más te hace reír en el momento menos oportuno?",
+    followUps: ["¿Te ha pasado en un funeral o reunión seria?", "¿Te tenés que morder la lengua?", "¿Contagiás a otros?"]
+  },
+  {
+    id: 1091,
+    text: "¿Cuál es el fondo de pantalla de tu celular ahora mismo?",
+    followUps: ["¿Es una foto tuya, de alguien más o un paisaje?", "¿Lo cambiás seguido?", "¿Tiene un significado especial?"]
+  },
+  {
+    id: 1092,
+    text: "¿Qué harías si te encontrás un maletín lleno de dólares en la calle?",
+    followUps: ["¿Lo devolverías o te lo quedarías?", "¿Te daría miedo?", "¿En qué gastarías el primer billete?"]
+  },
+  {
+    id: 1093,
+    text: "¿Cuál es la frase que más repetís cuando estás borracho/a?",
+    followUps: ["¿Es algo cariñoso o agresivo?", "¿Te lo cuentan al día siguiente?", "¿Te da vergüenza?"]
+  },
+  {
+    id: 1094,
+    text: "Si pudieras cambiar tu nombre, ¿cuál te pondrías?",
+    followUps: ["¿Sería algo exótico?", "¿Odias tu nombre actual?", "¿Te pegarían ese nombre?"]
+  },
+  {
+    id: 1095,
+    text: "¿Qué es lo que más te molesta que haga la gente en el cine?",
+    followUps: ["¿El ruido, el celular o que hablen?", "¿Lo decís o te callás?", "¿Te arruina la película?"]
+  },
+  {
+    id: 1096,
+    text: "¿Cuál es tu placer visual favorito (videos de limpieza, cocina, etc)?",
+    followUps: ["¿Te relaja verlo?", "¿Podés estar horas mirando?", "¿Es tu terapia?"]
+  },
+  {
+    id: 1097,
+    text: "Si fueras un postre, ¿cuál serías?",
+    followUps: ["¿Empalagoso, ligero o con sorpresa?", "¿Por qué te representa?", "¿Le gustarías a todos?"]
+  },
+  {
+    id: 1098,
+    text: "¿Qué es lo más infantil que seguís haciendo a tu edad?",
+    followUps: ["¿Ver dibujos animados, dormir con peluche?", "¿Te hace feliz?", "¿Lo ocultás?"]
+  },
+  {
+    id: 1099,
+    text: "¿Cuál es la red social en la que pasás más tiempo perdiendo el tiempo?",
+    followUps: ["¿Te sentís culpable después?", "¿Qué contenido consumís?", "¿Podrías borrarla?"]
+  },
+  {
+    id: 1100,
+    text: "¿Qué harías si te despertás y sos invisible?",
+    followUps: ["¿Espiarías a alguien?", "¿Harías bromas?", "¿Te asustarías?"]
+  },
+  {
+    id: 1101,
+    text: "¿Qué es lo que más te cuesta comunicar cuando estás conociendo a alguien?",
+    followUps: ["¿Tus miedos o tus expectativas?", "¿Por qué te bloqueás?", "¿Esperás que lo adivinen?"]
+  },
+  {
+    id: 1102,
+    text: "¿Cuál es el miedo más grande que tenés respecto a la intimidad emocional?",
+    followUps: ["¿Ser lastimado/a o perder tu libertad?", "¿Viene de una experiencia pasada?", "¿Te impide avanzar?"]
+  },
+  {
+    id: 1103,
+    text: "¿Qué parte de tu cuerpo te ha costado más aceptar y hoy amás?",
+    followUps: ["¿Fue un proceso largo?", "¿Qué te hizo cambiar de opinión?", "¿Ahora la mostrás con orgullo?"]
+  },
+  {
+    id: 1104,
+    text: "¿Cómo te sentís después de un encuentro casual: vacío/a o renovado/a?",
+    followUps: ["¿Depende de la persona?", "¿Buscás conexión o solo placer?", "¿Te arrepentís a veces?"]
+  },
+  {
+    id: 1105,
+    text: "¿Qué es lo que realmente te hace sentir conectado/a con otra persona?",
+    followUps: ["¿Una charla profunda o el silencio compartido?", "¿Es algo instantáneo?", "¿Pasa pocas veces?"]
+  },
+  {
+    id: 1106,
+    text: "¿Cuál ha sido la lección más dolorosa que has aprendido en el amor?",
+    followUps: ["¿Cambió tu forma de amar?", "¿Valió la pena el dolor?", "¿Se la enseñarías a alguien más?"]
+  },
+  {
+    id: 1107,
+    text: "¿Qué importancia le das al post-sexo (charla, mimos, dormir juntos)?",
+    followUps: ["¿Es vital para vos?", "¿Te sentís usado/a si no hay nada?", "¿Te gusta tu espacio?"]
+  },
+  {
+    id: 1108,
+    text: "¿Te considerás una persona fácil de enamorar o sos más racional?",
+    followUps: ["¿Te entregás rápido?", "¿Analizás todo antes?", "¿Sufrís más por eso?"]
+  },
+  {
+    id: 1109,
+    text: "¿Qué cualidad buscás hoy en alguien para que te resulte realmente interesante?",
+    followUps: ["¿Inteligencia, humor o bondad?", "¿Cambió con los años?", "¿Es difícil de encontrar?"]
+  },
+  {
+    id: 1110,
+    text: "¿Cuál es el sueño que todavía no le has contado a nadie en este grupo?",
+    followUps: ["¿Te da miedo que no se cumpla?", "¿Es muy personal?", "¿Por qué lo guardás?"]
+  },
+  {
+    id: 1111,
+    text: "¿Qué es lo que más agradecés de tu situación sentimental o personal actual?",
+    followUps: ["¿La paz, la compañía o la libertad?", "¿Te costó llegar ahí?", "¿Lo valorás a diario?"]
+  },
+  {
+    id: 1112,
+    text: "¿Cómo manejás el rechazo cuando alguien no tiene interés en vos?",
+    followUps: ["¿Te afecta el autoestima?", "¿Lo aceptás rápido?", "¿Insistís un poco?"]
+  },
+  {
+    id: 1113,
+    text: "¿Qué significa para vos \"vivir tu sexualidad con libertad\"?",
+    followUps: ["¿Sentís que lo hacés?", "¿Qué prejuicios tuviste que romper?", "¿Te importa la opinión ajena?"]
+  },
+  {
+    id: 1114,
+    text: "¿Cuál es el recuerdo de tu infancia que más atesorás hoy?",
+    followUps: ["¿Quién estaba con vos?", "¿Te da nostalgia?", "¿Te formó como persona?"]
+  },
+  {
+    id: 1115,
+    text: "¿Qué es lo que más te hace sentir orgulloso/a de quién sos ahora?",
+    followUps: ["¿Tu resiliencia, tus logros o tu bondad?", "¿Te lo reconocés a vos mismo/a?", "¿Alguien te ayudó?"]
+  },
+  {
+    id: 1116,
+    text: "¿Qué herida de tu pasado sentís que todavía está cicatrizando?",
+    followUps: ["¿Es reciente?", "¿Estás haciendo algo para sanar?", "¿Te define hoy?"]
+  },
+  {
+    id: 1117,
+    text: "¿Cuándo fue la última vez que lloraste y qué lo provocó?",
+    followUps: ["¿Fue de tristeza o emoción?", "¿Estabas solo/a?", "¿Te alivió?"]
+  },
+  {
+    id: 1118,
+    text: "¿Qué es lo que más te asusta de envejecer?",
+    followUps: ["¿La soledad, el cuerpo o la mente?", "¿Lo pensás seguido?", "¿Cómo te preparás?"]
+  },
+  {
+    id: 1119,
+    text: "¿Cuál es el lenguaje del amor que más te hace sentir valorado/a?",
+    followUps: ["¿Palabras, actos o contacto físico?", "¿Lo comunicás a tu pareja?", "¿Te cuesta darlo?"]
+  },
+  {
+    id: 1120,
+    text: "¿Qué significa \"lealtad\" para vos en un vínculo?",
+    followUps: ["¿Es fidelidad o apoyo incondicional?", "¿La has roto alguna vez?", "¿Es lo más importante?"]
+  },
+  {
+    id: 1121,
+    text: "Si pudieras pedir perdón a alguien de tu pasado, ¿a quién sería?",
+    followUps: ["¿Por qué no lo hiciste antes?", "¿Te perdonarían?", "¿Te quitaría un peso?"]
+  },
+  {
+    id: 1122,
+    text: "¿Qué parte de tu personalidad te cuesta más aceptar?",
+    followUps: ["¿Es algo que lastima a otros?", "¿Intentás cambiarlo?", "¿Es tu sombra?"]
+  },
+  {
+    id: 1123,
+    text: "¿Cómo manejás la vulnerabilidad: te abrís fácil o te ponés una armadura?",
+    followUps: ["¿Te han lastimado por abrirte?", "¿Cuándo bajás la guardia?", "¿Te sentís débil o fuerte al hacerlo?"]
+  },
+  {
+    id: 1124,
+    text: "Si hoy fuera el último día de tu vida, ¿te irías en paz con tus decisiones?",
+    followUps: ["¿Qué te faltó hacer?", "¿Te arrepentís de mucho?", "¿A quién llamarías?"]
+  },
+  {
+    id: 1125,
+    text: "¿Qué es lo que más te hace sentir \"en casa\" cuando estás con alguien?",
+    followUps: ["¿La confianza, el olor o la risa?", "¿Lo sentís con mucha gente?", "¿Es difícil de encontrar?"]
+  },
+  {
+    id: 1126,
+    text: "¿Sentís que sos prioridad en tu propia vida hoy?",
+    followUps: ["¿Te postergás por otros?", "¿Cuándo empezaste a priorizarte?", "¿Te sentís egoísta?"]
+  },
+  {
+    id: 1127,
+    text: "¿Qué es lo que más te dolió que alguien te dijera alguna vez?",
+    followUps: ["¿Fue verdad?", "¿Pudiste olvidarlo?", "¿Cambió tu relación con esa persona?"]
+  },
+  {
+    id: 1128,
+    text: "¿Qué cualidad ajena te calma cuando estás muy estresado/a?",
+    followUps: ["¿La escucha, el silencio o el humor?", "¿Buscás a esa persona?", "¿Funciona siempre?"]
+  },
+  {
+    id: 1129,
+    text: "¿Qué es lo que más te gusta de la persona que tenés a tu derecha?",
+    followUps: ["¿Se lo decís seguido?", "¿Es algo físico o de personalidad?", "¿Te inspira?"]
+  },
+  {
+    id: 1130,
+    text: "¿Cuál es el mayor sacrificio que has hecho por otra persona?",
+    followUps: ["¿Valió la pena?", "¿Te lo agradecieron?", "¿Lo volverías a hacer?"]
+  },
+  {
+    id: 1131,
+    text: "¿Qué es lo que más te hace sentir inseguro/a en una relación?",
+    followUps: ["¿El silencio, la distancia o los celos?", "¿Lo hablás?", "¿Es un miedo real o imaginario?"]
+  },
+  {
+    id: 1132,
+    text: "¿Cuál es el valor que nunca negociarías con nadie?",
+    followUps: ["¿Honestidad, respeto o libertad?", "¿Te ha costado relaciones?", "¿Es tu base?"]
+  },
+  {
+    id: 1133,
+    text: "¿Qué es lo que más te gusta de estar solo/a?",
+    followUps: ["¿El silencio o hacer lo que querés?", "¿Te aburrís a veces?", "¿Es necesario para vos?"]
+  },
+  {
+    id: 1134,
+    text: "¿Cuál es el momento de tu vida en el que te sentiste más valiente?",
+    followUps: ["¿Tuviste miedo?", "¿Fue una decisión difícil?", "¿Te cambió la vida?"]
+  },
+  {
+    id: 1135,
+    text: "¿Cómo te gustaría que te recordaran cuando ya no estés?",
+    followUps: ["¿Por tu humor, tu amor o tus logros?", "¿Estás viviendo así hoy?", "¿Te importa el legado?"]
+  },
+  {
+    id: 1136,
+    text: "¿Qué es lo que más te hace reír de vos mismo/a?",
+    followUps: ["¿Tus torpezas o tus miedos?", "¿Te tomás con humor tus errores?", "¿Es sano?"]
+  },
+  {
+    id: 1137,
+    text: "¿Cuál es tu mayor arrepentimiento hasta el día de hoy?",
+    followUps: ["¿Se puede arreglar?", "¿Aprendiste de eso?", "¿Te pesa todavía?"]
+  },
+  {
+    id: 1138,
+    text: "¿Qué es lo que más te motiva a levantarte cada mañana?",
+    followUps: ["¿Un proyecto, una persona o la rutina?", "¿Te cuesta encontrar motivación?", "¿Es suficiente?"]
+  },
+  {
+    id: 1139,
+    text: "¿Qué crees que es lo más difícil de convivir con vos?",
+    followUps: ["¿Tu orden, tu humor o tus manías?", "¿Te lo han dicho?", "¿Intentás mejorarlo?"]
+  },
+  {
+    id: 1140,
+    text: "¿Cuál es el cumplido que más te gusta recibir?",
+    followUps: ["¿Sobre tu inteligencia o tu físico?", "¿Te lo creés?", "¿Te da vergüenza?"]
+  },
+  {
+    id: 1141,
+    text: "¿Qué es lo que más te ha hecho cambiar de opinión en el último año?",
+    followUps: ["¿Una experiencia o una persona?", "¿Eras muy terco/a antes?", "¿Te abrió la mente?"]
+  },
+  {
+    id: 1142,
+    text: "¿A qué persona de tu vida le confiás absolutamente todo?",
+    followUps: ["¿Es familia o amigo/a?", "¿Nunca te falló?", "¿Sabe tus secretos más oscuros?"]
+  },
+  {
+    id: 1143,
+    text: "¿Cómo definirías la palabra \"felicidad\" en este momento de tu vida?",
+    followUps: ["¿Es tranquilidad o euforia?", "¿La tenés?", "¿Es lo que esperabas?"]
+  },
+  {
+    id: 1144,
+    text: "¿Qué es lo más valioso que has aprendido de un fracaso?",
+    followUps: ["¿Te hizo más fuerte?", "¿Volviste a intentar?", "¿Agradecés que pasó?"]
+  },
+  {
+    id: 1145,
+    text: "¿Cuál es la mayor locura que harías por un amigo?",
+    followUps: ["¿Mentirías por él/ella?", "¿Le prestarías dinero?", "¿Lo acompañarías al fin del mundo?"]
+  },
+  {
+    id: 1146,
+    text: "¿Qué es lo que más te hace sentir libre?",
+    followUps: ["¿Viajar, crear o estar solo/a?", "¿Te sentís atado/a a algo?", "¿Lo buscás seguido?"]
+  },
+  {
+    id: 1147,
+    text: "¿Qué pregunta te gustaría que te hicieran más seguido?",
+    followUps: ["¿Nadie te la hace?", "¿Te gustaría desahogarte?", "¿Qué responderías?"]
+  },
+  {
+    id: 1148,
+    text: "¿Cómo te llevás con tu pasado: lo aceptás o lo evitás?",
+    followUps: ["¿Te perseguís con errores?", "¿Estás en paz?", "¿Mirás mucho atrás?"]
+  },
+  {
+    id: 1149,
+    text: "¿Qué es lo que más te atrae de la mente de una persona?",
+    followUps: ["¿Su cultura, su humor o su rapidez?", "¿Te enamora la inteligencia?", "¿Es más importante que el físico?"]
+  },
+  {
+    id: 1150,
+    text: "¿Cuál es tu mayor meta para este año?",
+    followUps: ["¿Estás cerca de lograrla?", "¿Depende solo de vos?", "¿Te presiona?"]
+  },
+  {
+    id: 1151,
+    text: "¿Crees que es posible separar el sexo del amor al 100%?",
+    followUps: ["¿Lo has logrado?", "¿Siempre alguien sale lastimado?", "¿Es cuestión de madurez?"]
+  },
+  {
+    id: 1152,
+    text: "¿Cuál es tu opinión sobre la monogamia en los tiempos que corren?",
+    followUps: ["¿Es natural o impuesta?", "¿Te funciona a vos?", "¿Crees que está en crisis?"]
+  },
+  {
+    id: 1153,
+    text: "¿Qué es para vos una \"red flag\" (bandera roja) inmediata en una primera cita?",
+    followUps: ["¿Cómo trata a los demás o cómo habla de sí mismo?", "¿Te vas enseguida?", "¿Soles ignorarlas?"]
+  },
+  {
+    id: 1154,
+    text: "¿Crees en las segundas oportunidades después de una infidelidad?",
+    followUps: ["¿Perdonarías vos?", "¿La confianza se recupera?", "¿Depende del tipo de infidelidad?"]
+  },
+  {
+    id: 1155,
+    text: "¿Qué opinás sobre el ghosting? ¿Lo has hecho alguna vez?",
+    followUps: ["¿Es cobardía o autocuidado?", "¿Te lo han hecho?", "¿Cómo te sentiste?"]
+  },
+  {
+    id: 1156,
+    text: "¿Cuál es el límite que nunca dejarías que alguien cruce en una relación?",
+    followUps: ["¿El falta de respeto o el control?", "¿Lo dejaste claro?", "¿Lo has perdonado antes?"]
+  },
+  {
+    id: 1157,
+    text: "¿Crees que el tamaño realmente importa o es un mito social?",
+    followUps: ["¿Importa más la técnica?", "¿Te ha condicionado?", "¿Se habla demasiado de eso?"]
+  },
+  {
+    id: 1158,
+    text: "¿Qué pensás de las relaciones a distancia: funcionan o son perder el tiempo?",
+    followUps: ["¿Tendrías una?", "¿Necesitás el contacto físico?", "¿La confianza es la clave?"]
+  },
+  {
+    id: 1159,
+    text: "¿Cuál es el mejor consejo sobre sexo o amor que te han dado?",
+    followUps: ["¿Lo aplicaste?", "¿Quién te lo dio?", "¿Te cambió la perspectiva?"]
+  },
+  {
+    id: 1160,
+    text: "¿Crees que los amigos con derechos siempre terminan con alguien enamorado?",
+    followUps: ["¿Te ha pasado?", "¿Se puede mantener el equilibrio?", "¿Alguien siempre quiere más?"]
+  },
+  {
+    id: 1161,
+    text: "¿Qué valor le dan a la exclusividad en la etapa de \"conocerse\"?",
+    followUps: ["¿La asumís o la hablás?", "¿Te molesta si ven a otros?", "¿Cuándo se vuelve serio?"]
+  },
+  {
+    id: 1162,
+    text: "¿Qué opinás sobre abrir la pareja después de muchos años de relación?",
+    followUps: ["¿Salva la relación o la termina?", "¿Lo propondrías?", "¿Te daría celos?"]
+  },
+  {
+    id: 1163,
+    text: "¿Crees que el porno ayuda o arruina la percepción de la realidad sexual?",
+    followUps: ["¿Crea expectativas falsas?", "¿Se puede disfrutar sin comparar?", "¿Educa o desinforma?"]
+  },
+  {
+    id: 1164,
+    text: "¿Qué es lo que hace que una persona sea \"inolvidable\" para vos?",
+    followUps: ["¿Cómo te hizo sentir?", "¿La química o la charla?", "¿Todavía pensás en ella?"]
+  },
+  {
+    id: 1165,
+    text: "¿Crees que el primer amor marca el resto de tus relaciones para siempre?",
+    followUps: ["¿Buscás patrones similares?", "¿Lo superaste?", "¿Fue una buena experiencia?"]
+  },
+  {
+    id: 1166,
+    text: "¿Cuál es tu opinión sobre compartir las contraseñas del celular en pareja?",
+    followUps: ["¿Es confianza o control?", "¿Lo harías?", "¿Tenés algo que ocultar?"]
+  },
+  {
+    id: 1167,
+    text: "¿Crees que los opuestos se atraen o que solo los parecidos duran?",
+    followUps: ["¿Qué te ha funcionado a vos?", "¿El conflicto cansa?", "¿Se complementan?"]
+  },
+  {
+    id: 1168,
+    text: "¿Qué opinás sobre vivir juntos antes de cualquier compromiso formal?",
+    followUps: ["¿Es la prueba de fuego?", "¿Mata la magia?", "¿Es necesario para conocerse?"]
+  },
+  {
+    id: 1169,
+    text: "¿Quién crees que debe dar el primer paso hoy en día?",
+    followUps: ["¿Sigue habiendo roles de género?", "¿Te gusta encarar o que te encaren?", "¿Se pierde espontaneidad?"]
+  },
+  {
+    id: 1170,
+    text: "¿Se puede estar enamorado de dos personas al mismo tiempo?",
+    followUps: ["¿Es amor o deseo?", "¿Te ha pasado?", "¿Qué harías en esa situación?"]
+  },
+  {
+    id: 1171,
+    text: "¿Qué opinás de las personas que mantienen contacto frecuente con sus ex?",
+    followUps: ["¿Es madurez o enganche?", "¿Te molestaría en tu pareja?", "¿Sos amigo/a de tus ex?"]
+  },
+  {
+    id: 1172,
+    text: "¿Qué es más importante: la química sexual o la estabilidad económica?",
+    followUps: ["¿El amor paga las cuentas?", "¿Se puede vivir sin pasión?", "¿Qué priorizás hoy?"]
+  },
+  {
+    id: 1173,
+    text: "¿Crees en las almas gemelas o en que el amor se construye?",
+    followUps: ["¿El destino existe?", "¿Requiere trabajo diario?", "¿Sentiste esa conexión mágica?"]
+  },
+  {
+    id: 1174,
+    text: "¿Hasta dónde llega la responsabilidad afectiva en algo casual?",
+    followUps: ["¿Hay que aclarar todo?", "¿Se puede desaparecer sin más?", "¿Cuidás al otro aunque sea breve?"]
+  },
+  {
+    id: 1175,
+    text: "¿Qué pensás de la diferencia de edad en las parejas? ¿Importa?",
+    followUps: ["¿El amor no tiene edad?", "¿Pesan las etapas de vida?", "¿Te ha pasado?"]
+  },
+  {
+    id: 1176,
+    text: "¿Crees que el matrimonio es un contrato necesario o algo obsoleto?",
+    followUps: ["¿Te casarías?", "¿Cambia algo el papel?", "¿Es solo social?"]
+  },
+  {
+    id: 1177,
+    text: "¿Qué importancia tiene la opinión de tus amigos sobre tu pareja?",
+    followUps: ["¿Si no les gusta, la dejás?", "¿Ven cosas que vos no?", "¿Es tu decisión final?"]
+  },
+  {
+    id: 1178,
+    text: "¿Es posible perdonar una mentira piadosa en la relación?",
+    followUps: ["¿Daña la confianza igual?", "¿Depende de la intención?", "¿Preferís la verdad dolorosa?"]
+  },
+  {
+    id: 1179,
+    text: "¿Qué es lo que más te hace desconfiar de alguien que recién conocés?",
+    followUps: ["¿Inconsistencias o intuición?", "¿Te cuesta confiar?", "¿Das el beneficio de la duda?"]
+  },
+  {
+    id: 1180,
+    text: "¿Crees que la convivencia mata el deseo sexual?",
+    followUps: ["¿La rutina es enemiga?", "¿Cómo se mantiene la chispa?", "¿Es inevitable?"]
+  },
+  {
+    id: 1181,
+    text: "¿Qué opinás del poliamor: es libertad o falta de compromiso?",
+    followUps: ["¿Podrías practicarlo?", "¿Requiere mucha gestión emocional?", "¿Es el futuro?"]
+  },
+  {
+    id: 1182,
+    text: "¿Qué valor le das a los detalles pequeños frente a los grandes gestos?",
+    followUps: ["¿Un mensaje o un regalo caro?", "¿Qué te enamora más?", "¿La constancia importa?"]
+  },
+  {
+    id: 1183,
+    text: "¿Crees que es mejor saber todo sobre el pasado de tu pareja o ignorarlo?",
+    followUps: ["¿El pasado condena?", "¿Te da celos retroactivos?", "¿Ayuda a entender?"]
+  },
+  {
+    id: 1184,
+    text: "¿Cuál es el límite entre \"ser honesto\" y \"ser cruel\" en una relación?",
+    followUps: ["¿Hay que decir todo sin filtro?", "¿La empatía va primero?", "¿Te han herido con honestidad?"]
+  },
+  {
+    id: 1185,
+    text: "¿Qué opinás sobre tener hijos en la sociedad actual?",
+    followUps: ["¿Es un deseo o mandato?", "¿Te preocupa el mundo?", "¿Te ves como padre/madre?"]
+  },
+  {
+    id: 1186,
+    text: "¿Crees que la tecnología alejó o acercó a las personas en el amor?",
+    followUps: ["¿Hay demasiadas opciones?", "¿Facilita o complica?", "¿Se perdió el romance?"]
+  },
+  {
+    id: 1187,
+    text: "¿Qué importancia tiene para vos que tu pareja sea amiga de tu familia?",
+    followUps: ["¿Es requisito excluyente?", "¿Pueden ir por carriles separados?", "¿Te alivia que se lleven bien?"]
+  },
+  {
+    id: 1188,
+    text: "¿Crees que el amor lo puede todo o hay cosas que el amor no cura?",
+    followUps: ["¿La incompatibilidad gana?", "¿El amor alcanza?", "¿Has dejado de amar por realidad?"]
+  },
+  {
+    id: 1189,
+    text: "¿Qué opinás de los celos: son protección o inseguridad?",
+    followUps: ["¿Un poco es sano?", "¿Te sentís halagado/a?", "¿Te asfixian?"]
+  },
+  {
+    id: 1190,
+    text: "¿Crees que la primera impresión siempre es la que cuenta?",
+    followUps: ["¿Has cambiado de opinión?", "¿Te dejás llevar por el instinto?", "¿Das segundas oportunidades?"]
+  },
+  {
+    id: 1191,
+    text: "¿Qué pensás de las citas a ciegas?",
+    followUps: ["¿Te animarías?", "¿Confias en quien te presenta?", "¿Te da ansiedad?"]
+  },
+  {
+    id: 1192,
+    text: "¿Cuál es tu postura sobre el aborto o los derechos reproductivos?",
+    followUps: ["¿Es un tema que hablás en citas?", "¿Afectaría tu elección de pareja?", "¿Es un valor fundamental?"]
+  },
+  {
+    id: 1193,
+    text: "¿Crees que el feminismo cambió la forma en que nos relacionamos sexualmente?",
+    followUps: ["¿Hay más igualdad?", "¿Confundió roles?", "¿Mejoró la comunicación?"]
+  },
+  {
+    id: 1194,
+    text: "¿Qué opinás de la gente que publica toda su relación en redes sociales?",
+    followUps: ["¿Es real o apariencia?", "¿Vos lo hacés?", "¿Necesitan validación?"]
+  },
+  {
+    id: 1195,
+    text: "¿Crees que se puede amar a alguien sin admirarlo?",
+    followUps: ["¿La admiración es base del amor?", "¿Qué admirás en una pareja?", "¿El amor es ciego?"]
+  },
+  {
+    id: 1196,
+    text: "¿Qué es para vos una \"relación sana\"?",
+    followUps: ["¿Paz, confianza o libertad?", "¿La has tenido?", "¿Es difícil de construir?"]
+  },
+  {
+    id: 1197,
+    text: "¿Crees que el sexo mejora con el tiempo en una pareja estable?",
+    followUps: ["¿Se pierde la novedad?", "¿La confianza ayuda?", "¿Hay que trabajar en ello?"]
+  },
+  {
+    id: 1198,
+    text: "¿Qué opinás de los \"permisos\" o \"libertades\" pactadas en la pareja?",
+    followUps: ["¿Salidas solos?", "¿Viajes separados?", "¿Es necesario el aire?"]
+  },
+  {
+    id: 1199,
+    text: "¿Crees en el amor a primera vista?",
+    followUps: ["¿Te pasó?", "¿Es solo atracción?", "¿Puede durar?"]
+  },
+  {
+    id: 1200,
+    text: "¿Qué es lo que más te asusta de comprometerte con alguien a largo plazo?",
+    followUps: ["¿Perder tu identidad?", "¿El aburrimiento?", "¿Que se termine?"]
   }
 ];

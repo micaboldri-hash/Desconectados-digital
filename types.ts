@@ -12,6 +12,7 @@ export interface Player {
 }
 
 export type GameMode = 'dianoia' | 'impostor' | 'tabu';
+export type DianoiaMode = 'normal' | 'spicy';
 
 export interface DianoiaState {
   currentQuestionIndex: number;
